@@ -112,9 +112,18 @@ const model2 = {
 }
 
 const model3 = []
-
+/*
 const Student = {
     name: '', number: '', email: '', id: ''}
+*/
+class Student {
+    constructor(name, number, email, id) {
+        this.name = name;
+        this.number = number;
+        this.email = email;
+        this.id = id;
+    }
+}
 
 const GetStudents = () => {
     fetch('http://localhost:8080/students/user42')
@@ -180,13 +189,15 @@ const DisplayStudent = (props) => (
         <table>
                 <tbody>
                     <tr><td>Name</td><td>Number</td><td>Email</td><td>Id</td></tr>
-                    <tr><td>{props.name}</td><td>{props.number}</td><td>{props.email}</td><td>{props.id}</td></tr>
+
+    {props.students.map(s => (
+            <tr><td>{s.name}</td><td>{s.number}</td><td>{s.email}</td><td>{s.id}</td></tr>
+        ))}
                 </tbody>
         </table>
     </div>
 )
 
-//is actually displayStudent
 class DisplayStudents extends React.Component {
     constructor(props) {
     super(props);
@@ -197,21 +208,28 @@ class DisplayStudents extends React.Component {
   }
 
     componentDidMount() {
-    fetch('http://localhost:8080/students/user42')
+    fetch('http://localhost:8080/students/')
       .then(
         (response) => {
           // Examine the text in the response
           response.text()
               .then((data) => {
-              console.log(data);
-              var obj = JSON.parse(data);
-              Student.name = obj.properties.name;
-              Student.number = obj.properties.number;
-              Student.email = obj.properties.email;
-              Student.id = obj.properties.id;
-            this.setState({students: Student});
-          });
-        }
+                  console.log(data);
+                  var obj = JSON.parse(data);
+                console.log(obj);
+                    var numOfStudents = obj.entities.length;
+              console.log(numOfStudents);
+                var studentArray = [];
+                for(var i = 0; i < numOfStudents; i++) {
+                    let StudentTemp = new Student(obj.entities[i].properties.name, obj.entities[i].properties.number, obj.entities[i].properties.email, obj.entities[i].properties.id);
+                    console.log(StudentTemp);
+                    studentArray.push(StudentTemp);
+                }
+
+                  this.setState({students: studentArray});
+                console.log(this.state.students);
+               });
+          }
       )
       .catch(function(err) {
         console.log('Fetch Error :-S', err);
@@ -220,7 +238,7 @@ class DisplayStudents extends React.Component {
 
     render() {
     return (
-    <DisplayStudent name={this.state.students.name} number={this.state.students.number} email={this.state.students.email} id={this.state.students.id} />
+    <DisplayStudent students={this.state.students} />
 )}
 }
 
@@ -239,7 +257,6 @@ const render4 = (model) => (
         <Welcome2 name="Nejc"/>
         <GetStudentButton/>
         <Form/>
-        <DisplayStudent name={name} number="123" email="email.com" id="id" />
         <DisplayStudents/>
     </div>
 )
