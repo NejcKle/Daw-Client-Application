@@ -1,6 +1,5 @@
 const React = require('react')
 const ReactDom = require('react-dom')
-const sirenParser = require('siren-parser')
 import './index.css';
 
 const fetch = require('isomorphic-fetch')
@@ -22,7 +21,7 @@ const Welcome3 = () => (
 
 
 const render2 = () => (
-	<Welcome2 name="Kurac"/>
+	<Welcome2 name=""/>
 )
 
 const render3 = () => (
@@ -32,13 +31,15 @@ const render3 = () => (
 const model = {
     'm_students': [
         {m_name: 'Alice', m_number: 12345},
-        {m_name: 'Bob', m_number: 420420},
-        {m_name: 'Nejc', m_number: 696969},
-        {m_name: 'Vid', m_number: 133769}
+        {m_name: 'Bob', m_number: 23456},
+        {m_name: 'Nejc', m_number: 34567},
+        {m_name: 'Vid', m_number: 45678}
 	]
 }
 
-//const more bit vedno z vlko!!
+
+
+//const funkcija more bit vedno z vlko!!
 const Welcome4 = (props) => (
     <div>
         {props.students.map(s => (
@@ -46,9 +47,6 @@ const Welcome4 = (props) => (
         ))}
     </div>
 )
-
-const Student = {
-    name: '', number: '', email: '', id: ''}
 
 class Form extends React.Component {
     constructor(props) {
@@ -61,11 +59,7 @@ class Form extends React.Component {
         email : ''
     }
 
-   // const name = this.state.name;
-    //    const number = this.state.number;
-
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
     handleChange(event) {
@@ -85,7 +79,7 @@ class Form extends React.Component {
 
 render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit.bind(this)}>
         <label>
           Name:
           <input name="name" type="text" value={this.state.name} onChange={this.handleChange} />
@@ -108,16 +102,34 @@ render() {
   }
 }
 
-const GetStudent = () => {
-        fetch('http://localhost:8080/students')
+const model2 = {
+    'students': [
+        {name: 'Alice', number: 12345},
+        {name: 'Bob', number: 23456},
+        {name: 'Nejc', number: 34567},
+        {name: 'Vid', number: 45678}
+	]
+}
+
+const model3 = []
+
+const Student = {
+    name: '', number: '', email: '', id: ''}
+
+const GetStudents = () => {
+        fetch('http://localhost:8080/students/user42')
       .then(
         function(response) {
           // Examine the text in the response
           response.text()
               .then(function(data) {
               console.log(data);
-              const resource = sirenParser(data);
-            console.log(resource);
+              var obj = JSON.parse(data);
+              Student.name = obj.properties.name;
+              Student.number = obj.properties.number;
+              Student.email = obj.properties.email;
+              Student.id = obj.properties.id;
+              model3.push(Student);
           });
         }
       )
@@ -163,8 +175,55 @@ const AddStudent = (props) => {
 }
 
 
+const DisplayStudent = (props) => (
+    <div>
+        <table>
+                <tbody>
+                    <tr><td>Name</td><td>Number</td><td>Email</td><td>Id</td></tr>
+                    <tr><td>{props.name}</td><td>{props.number}</td><td>{props.email}</td><td>{props.id}</td></tr>
+                </tbody>
+        </table>
+    </div>
+)
+
+class DisplayStudents extends React.Component {
+    constructor(props) {
+    super(props);
+
+    this.state = {
+        students = []
+    }
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+    handleChange(event) {
+        const target = event.target;
+        const name = target.name;
+        const value = target.value;
+
+    this.setState({
+      [name]: value
+    });
+  }
+
+    render() {
+    return (
+    <div>
+        <table>
+                <tbody>
+                    <tr><td>Name</td><td>Number</td><td>Email</td><td>Id</td></tr>
+                    {props.students.map(s => (
+                    <tr><td>{s.name}</td><td>{s.number}</td><td>{s.email}</td><td>{s.id}</td></tr>
+                    ))}
+                </tbody>
+        </table>
+    </div>
+)}
+}
+
 const GetStudentButton = () => (
-        <button type="button" onClick={GetStudent}>Get students!</button>
+        <button type="button" onClick={GetStudents}>Get students!</button>
 )
 
 const AddStudentButton = () => (
@@ -175,8 +234,11 @@ const render4 = (model) => (
 	<div>
         <Welcome4 students={model.m_students}/>
         <Welcome3/>
+        <Welcome2 name="Nejc"/>
         <GetStudentButton/>
         <Form/>
+        <DisplayStudent name={name} number="123" email="email.com" id="id" />
+        <DisplayStudents students={model2.students} />
     </div>
 )
 
