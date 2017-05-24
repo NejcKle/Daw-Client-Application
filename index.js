@@ -117,7 +117,7 @@ const Student = {
     name: '', number: '', email: '', id: ''}
 
 const GetStudents = () => {
-        fetch('http://localhost:8080/students/user42')
+    fetch('http://localhost:8080/students/user42')
       .then(
         function(response) {
           // Examine the text in the response
@@ -186,39 +186,41 @@ const DisplayStudent = (props) => (
     </div>
 )
 
+//is actually displayStudent
 class DisplayStudents extends React.Component {
     constructor(props) {
     super(props);
 
     this.state = {
-        students = []
+        students: []
     }
-
-    this.handleChange = this.handleChange.bind(this);
   }
 
-    handleChange(event) {
-        const target = event.target;
-        const name = target.name;
-        const value = target.value;
-
-    this.setState({
-      [name]: value
-    });
+    componentDidMount() {
+    fetch('http://localhost:8080/students/user42')
+      .then(
+        (response) => {
+          // Examine the text in the response
+          response.text()
+              .then((data) => {
+              console.log(data);
+              var obj = JSON.parse(data);
+              Student.name = obj.properties.name;
+              Student.number = obj.properties.number;
+              Student.email = obj.properties.email;
+              Student.id = obj.properties.id;
+            this.setState({students: Student});
+          });
+        }
+      )
+      .catch(function(err) {
+        console.log('Fetch Error :-S', err);
+      })
   }
 
     render() {
     return (
-    <div>
-        <table>
-                <tbody>
-                    <tr><td>Name</td><td>Number</td><td>Email</td><td>Id</td></tr>
-                    {props.students.map(s => (
-                    <tr><td>{s.name}</td><td>{s.number}</td><td>{s.email}</td><td>{s.id}</td></tr>
-                    ))}
-                </tbody>
-        </table>
-    </div>
+    <DisplayStudent name={this.state.students.name} number={this.state.students.number} email={this.state.students.email} id={this.state.students.id} />
 )}
 }
 
@@ -238,7 +240,7 @@ const render4 = (model) => (
         <GetStudentButton/>
         <Form/>
         <DisplayStudent name={name} number="123" email="email.com" id="id" />
-        <DisplayStudents students={model2.students} />
+        <DisplayStudents/>
     </div>
 )
 
