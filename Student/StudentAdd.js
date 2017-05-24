@@ -1,7 +1,6 @@
-const React = require('react')
 const fetch = require('isomorphic-fetch')
 
-const AddStudent = (props) => {
+export default (props) => {
     var myHeaders = new Headers();
 
     var authorizationBasic = btoa("admin:admin");

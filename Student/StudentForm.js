@@ -1,6 +1,5 @@
 const React = require('react')
-const ReactDom = require('react-dom')
-const fetch = require('isomorphic-fetch')
+
 import AddStudent from './StudentAdd'
 
 export default class StudentForm extends React.Component {
