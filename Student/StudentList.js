@@ -19,20 +19,20 @@ export default class StudentList extends React.Component {
           // Examine the text in the response
           response.text()
               .then((data) => {
-                  console.log(data);
+                  //console.log(data);
                   var obj = JSON.parse(data);
-                console.log(obj);
+                //console.log(obj);
                     var numOfStudents = obj.entities.length;
-              console.log(numOfStudents);
+              //console.log(numOfStudents);
                 var studentArray = [];
                 for(var i = 0; i < numOfStudents; i++) {
                     let StudentTemp = new Student(obj.entities[i].properties.name, obj.entities[i].properties.number, obj.entities[i].properties.email, obj.entities[i].properties.id);
-                    console.log(StudentTemp);
+                    //console.log(StudentTemp);
                     studentArray.push(StudentTemp);
                 }
 
                   this.setState({students: studentArray});
-                console.log(this.state.students);
+                //console.log(this.state.students);
                });
           }
       )
