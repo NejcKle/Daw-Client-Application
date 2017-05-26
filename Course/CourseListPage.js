@@ -6,5 +6,6 @@ export default () => (
     <div>
         <CourseForm />
         <CourseList />
+        <p> Test </p>
     </div>
 )
