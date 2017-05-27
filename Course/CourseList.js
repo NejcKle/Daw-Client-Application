@@ -2,46 +2,61 @@ const React = require('react')
 const fetch = require('isomorphic-fetch')
 import Courses from './Course'
 import DisplayCourses from './CourseDisplay'
+import CourseStore from './CourseStore'
 
 export default class CourseList extends React.Component {
     constructor(props) {
-    super(props);
+        super(props);
 
-    this.state = {
-        courses: []
+        this.fetchData = this.fetchData.bind(this);
+        this.state = {
+            courses: [],
+            containsData: false
+        }
     }
-  }
 
-    componentDidMount() {
-    fetch('http://localhost:8080/courses/')
-      .then(
-        (response) => {
-          // Examine the text in the response
-          response.text()
-              .then((data) => {
-                    console.log(data);
-                    var obj = JSON.parse(data);
-                    console.log(obj);
-                    var numOfCourses = obj.entities.length;
-                    console.log(numOfCourses);
-                    var coursesArray = [];
-                for(var i = 0; i < numOfCourses; i++) {
-                    let CoursesTemp = new Courses(obj.entities[i].properties.name, obj.entities[i].properties.acronim, obj.entities[i].properties.id);
-                    console.log(CoursesTemp);
-                    coursesArray.push(CoursesTemp);
+    fetchData() {
+        fetch('http://localhost:8080/courses/')
+            .then(
+            (response) => {
+                if (response.status == 404) {
+                    this.setState({ containsData: false });
                 }
-                this.setState({courses: coursesArray});
-                console.log(this.state.courses);
-               });
-          }
-      )
-      .catch(function(err) {
-        console.log('Fetch Error :-S', err);
-      })
-  }
+                else if (response.status == 200) {
+                    this.setState({ containsData: true });
+                    response.text()
+                        .then((data) => {
+                            var obj = JSON.parse(data);
+                            var numOfCourses = obj.entities.length;
+                            var coursesArray = [];
+                            for (var i = 0; i < numOfCourses; i++) {
+                                let CoursesTemp = new Courses(obj.entities[i].properties.name, obj.entities[i].properties.acronim, obj.entities[i].properties.id);
+                                coursesArray.push(CoursesTemp);
+                            }
+                            this.setState({ courses: coursesArray });
+                        });
+                }
+
+            }
+            )
+            .catch(function (err) {
+                console.log('Fetch Error :-S', err);
+            })
+    }
+
+     componentDidMount() {
+        CourseStore.on("change", this.fetchData);
+    }
+
+    componentWillMount() {
+        this.fetchData();
+    }
 
     render() {
         return (
-            <DisplayCourses courses={this.state.courses} />
-    )}
+            <div>
+                <DisplayCourses courses={this.state.courses} containsData={this.state.containsData} />
+            </div>
+        )
+    }
 }
