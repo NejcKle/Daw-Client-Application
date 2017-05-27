@@ -9,27 +9,20 @@ export default (props) => {
     myHeaders.append('Authorization', 'Basic ' + authorizationBasic);
     myHeaders.append('Content-Type', 'application/vnd.siren+json');
 
-    //object containing data passed from form
-    var student = {name: props.name, email: props.email, number: props.number, id:props.s_id};
-
-    var data = JSON.stringify(
-        student
-    )
-
     var myInit = {
-        method: 'POST',
+        method: 'DELETE',
         headers: myHeaders,
-        body: data
     };
 
-    var myRequest = new Request('http://localhost:8080/students/', myInit)
+    var uri = 'http://localhost:8080/students/' + props.id;
+    var myRequest = new Request(uri, myInit)
 
     fetch(myRequest)
       .then(
         function(response) {
             if (response.ok) {
-                //console.log("adding");
-                StudentActions.addStudent();
+                //console.log("remove");
+                StudentActions.removeStudent();
                 return response.blob();
             }
             throw new Error('Network response was not ok.');
@@ -37,4 +30,5 @@ export default (props) => {
       .catch(function(err) {
         console.log('Fetch Error :-S', err);
       })
+
 }
