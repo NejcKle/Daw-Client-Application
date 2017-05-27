@@ -1,4 +1,4 @@
-import Dispatcher from "../Student/Dispatcher"
+import Dispatcher from "../Dispatcher"
 
 export function addStudent() {
     Dispatcher.dispatch({
