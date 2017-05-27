@@ -1,4 +1,5 @@
 const React = require('react')
+
 import RemoveStudent from './StudentRemove'
 
 export default (props) => {
