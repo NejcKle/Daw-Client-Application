@@ -1,4 +1,5 @@
 const fetch = require('isomorphic-fetch')
+import * as StudentActions from '../Actions/StudentActions'
 
 export default (props) => {
     var myHeaders = new Headers();
@@ -27,6 +28,8 @@ export default (props) => {
       .then(
         function(response) {
             if (response.ok) {
+                //console.log("adding");
+                StudentActions.addStudent();
                 return response.blob();
             }
             throw new Error('Network response was not ok.');
