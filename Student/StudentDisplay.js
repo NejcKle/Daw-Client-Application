@@ -21,7 +21,7 @@ export default (props) => {
 
     else return (
     <div>
-        <span> Student table contains no elements </span>
+        <span>Student table contains no elements </span>
     </div>
     )
 }
