@@ -1,7 +1,6 @@
-import { EventEmitter } from 'events';
+import { EventEmitter } from 'events'
 
-import Dispatcher from '../Dispatcher';
-import Student from './Student'
+import Dispatcher from '../Dispatcher'
 
 class StudentStore extends EventEmitter {
     constructor() {

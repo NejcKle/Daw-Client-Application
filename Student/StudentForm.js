@@ -44,11 +44,11 @@ render() {
         </label>
         <label>
           Id:
-          <input name="s_id" type="text" value={this.state.s_id} onChange={this.handleChange} />
+          <input name="s_id" type="text" value={this.state.s_id} onChange={this.handleChange} required="true" />
         </label>
         <label>
           Email:
-          <input name="email" type="text" value={this.state.email} onChange={this.handleChange} />
+          <input name="email" type="email" value={this.state.email} onChange={this.handleChange} />
         </label>
         <input type="submit" value="Add Student" />
       </form>

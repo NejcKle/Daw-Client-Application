@@ -48,7 +48,7 @@ export default class KlassForm extends React.Component {
         </label>
         <label>
           Id:
-          <input name="k_id" type="text" value={this.state.k_id} onChange={this.handleChange} />
+          <input name="k_id" type="text" value={this.state.k_id} onChange={this.handleChange} required="true" />
         </label>
         <input type="submit" value="Add Class" />
       </form>

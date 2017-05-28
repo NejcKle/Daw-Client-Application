@@ -2,17 +2,17 @@ import { EventEmitter } from 'events'
 
 import Dispatcher from '../Dispatcher'
 
-class KlassStore extends EventEmitter {
+class GroupStore extends EventEmitter {
     constructor() {
         super()
         this.containsData = false
     }
 
-    removeKlass() {
+    removeGroup() {
         this.emit("change");
     }
 
-    addKlass() {
+    addGroup() {
         this.containsData = true;
         this.emit("change");
     }
@@ -23,18 +23,18 @@ class KlassStore extends EventEmitter {
 
     handleActions(action) {
         switch(action.type) {
-            case "ADD_KLASS": {
-                this.addKlass();
+            case "ADD_GROUP": {
+                this.addGroup();
                 break;
             }
-            case "REMOVE_KLASS": {
-                this.removeKlass();
+            case "REMOVE_GROUP": {
+                this.removeGroup();
                 break;
             }
         }
     }
 }
 
-const klassStore = new KlassStore();
-Dispatcher.register(klassStore.handleActions.bind(klassStore));
-export default klassStore;
+const groupStore = new GroupStore();
+Dispatcher.register(groupStore.handleActions.bind(groupStore));
+export default groupStore;

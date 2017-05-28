@@ -43,7 +43,7 @@ export default class CourseForm extends React.Component {
         </label>
         <label>
           Id:
-          <input name="c_id" type="text" value={this.state.c_id} onChange={this.handleChange} />
+          <input name="c_id" type="text" value={this.state.c_id} onChange={this.handleChange} required="true" />
         </label>
         <input type="submit" value="Add Course" />
       </form>
