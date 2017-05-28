@@ -8,9 +8,9 @@ export default (props) => {
             <div>
                 <table>
                     <tbody>
-                        <tr><td>Identifier</td><td>Auto enrolment</td><td>Id</td></tr>
+                        <tr><td>Id</td><td>Identifier</td><td>Auto enrolment</td></tr>
                         {props.klasses.map(k => (
-                            <tr key={k.id}><td>{k.identifier}</td><td>{k.enrolment.toString()}</td><td>{k.id}</td>
+                            <tr key={k.id}><td><a href={'/classes/' + k.id}>{k.id}</a></td><td>{k.identifier}</td><td>{k.enrolment.toString()}</td>
                                 <td><button type="button" onClick={() => RemoveKlass({ id: k.id })}>Remove</button></td>
                             </tr>
                         ))}

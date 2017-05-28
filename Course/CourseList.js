@@ -19,10 +19,10 @@ export default class CourseList extends React.Component {
         fetch('http://localhost:8080/courses/')
             .then(
             (response) => {
-                if (response.status == 404) {
+                if (response.status === 404) {
                     this.setState({ containsData: false });
                 }
-                else if (response.status == 200) {
+                else if (response.status === 200) {
                     this.setState({ containsData: true });
                     response.text()
                         .then((data) => {

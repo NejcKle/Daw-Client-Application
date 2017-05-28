@@ -1,12 +1,10 @@
 import { EventEmitter } from 'events';
 
-import Dispatcher from '../Dispatcher';
-import Course from './Course'
+import Dispatcher from '../Dispatcher'
 
 class CourseStore extends EventEmitter {
     constructor() {
         super()
-        this.containsData = false
     }
 
     removeCourse() {
@@ -16,10 +14,6 @@ class CourseStore extends EventEmitter {
     addCourse() {
         this.containsData = true;
         this.emit("change");
-    }
-
-    getState() {
-        return this.containsData;
     }
 
     handleActions(action) {

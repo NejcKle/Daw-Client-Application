@@ -8,9 +8,9 @@ export default (props) => {
             <div>
                 <table>
                     <tbody>
-                        <tr><td>Name</td><td>Number</td><td>Email</td><td>Id</td></tr>
+                        <tr><td>Id</td><td>Name</td><td>Number</td><td>Email</td></tr>
                         {props.students.map(s => (
-                            <tr key={s.id}><td>{s.name}</td><td>{s.number}</td><td>{s.email}</td><td>{s.id}</td>
+                            <tr key={s.id}><td><a href={'/students/' + s.id}>{s.id}</a></td><td>{s.name}</td><td>{s.number}</td><td>{s.email}</td>
                                 <td><button type="button" onClick={() => RemoveStudent({ id: s.id })}>Remove</button></td>
                             </tr>
                         ))}

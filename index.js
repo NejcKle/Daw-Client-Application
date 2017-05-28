@@ -3,6 +3,7 @@ const React = require('react')
 import StudentListPage from './Student/StudentListPage'
 import CourseListPage from './Course/CourseListPage'
 import KlassListPage from './Klass/KlassListPage'
+import TeacherListPage from './Teacher/TeacherListPage'
 import './index.css';
 
 const App = () => (
@@ -12,6 +13,8 @@ const App = () => (
         <CourseListPage />
         <br/>
         <KlassListPage />
+        <br/>
+        <TeacherListPage />
     </div>
 )
 
