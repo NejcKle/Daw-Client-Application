@@ -1,7 +1,7 @@
 const React = require('react')
 const fetch = require('isomorphic-fetch')
 import Klass from './Klass'
-import DisplayKlasss from './KlassDisplay'
+import DisplayKlass from './KlassDisplay'
 import KlassStore from './KlassStore'
 
 export default class KlassList extends React.Component {
@@ -28,12 +28,10 @@ export default class KlassList extends React.Component {
                     response.text()
                         .then((data) => {
                             var obj = JSON.parse(data);
-                            console.log(data);
                             var numOfKlasses = obj.entities.length;
                             var klassesArray = [];
                             for (var i = 0; i < numOfKlasses; i++) {
                                 let KlassTemp = new Klass(obj.entities[i].properties.identifier, obj.entities[i].properties.enrolment_auto, obj.entities[i].properties.id);
-                                console.log(obj.entities[i].properties.enrolment_auto);
                                 klassesArray.push(KlassTemp);
                             }
                             this.setState({ klasses: klassesArray });
@@ -57,7 +55,7 @@ export default class KlassList extends React.Component {
     render() {
         return (
             <div>
-                <DisplayKlasss klasses={this.state.klasses} containsData={this.state.containsData} />
+                <DisplayKlass klasses={this.state.klasses} containsData={this.state.containsData} />
             </div>
         )
     }

@@ -2,34 +2,34 @@ import { EventEmitter } from 'events';
 
 import Dispatcher from '../Dispatcher'
 
-class StudentStore extends EventEmitter {
+class TeacherStore extends EventEmitter {
     constructor() {
         super()
     }
 
-    removeStudent() {
+    removeTeacher() {
         this.emit("change");
     }
 
-    addStudent() {
+    addTeacher() {
         this.containsData = true;
         this.emit("change");
     }
 
     handleActions(action) {
         switch(action.type) {
-            case "ADD_STUDENT": {
-                this.addStudent();
+            case "ADD_TEACHER": {
+                this.addTeacher();
                 break;
             }
-            case "REMOVE_STUDENT": {
-                this.removeStudent();
+            case "REMOVE_TEACHER": {
+                this.removeTeacher();
                 break;
             }
         }
     }
 }
 
-const studentStore = new StudentStore();
-Dispatcher.register(studentStore.handleActions.bind(studentStore));
-export default studentStore;
+const teacherStore = new TeacherStore();
+Dispatcher.register(teacherStore.handleActions.bind(teacherStore));
+export default teacherStore;
