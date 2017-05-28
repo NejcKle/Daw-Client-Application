@@ -5,7 +5,6 @@ import Dispatcher from '../Dispatcher'
 class KlassStore extends EventEmitter {
     constructor() {
         super()
-        this.containsData = false
     }
 
     removeKlass() {
@@ -15,10 +14,6 @@ class KlassStore extends EventEmitter {
     addKlass() {
         this.containsData = true;
         this.emit("change");
-    }
-
-    getState() {
-        return this.containsData;
     }
 
     handleActions(action) {

@@ -5,7 +5,6 @@ import Dispatcher from '../Dispatcher'
 class StudentStore extends EventEmitter {
     constructor() {
         super()
-        this.containsData = false
     }
 
     removeStudent() {
@@ -15,10 +14,6 @@ class StudentStore extends EventEmitter {
     addStudent() {
         this.containsData = true;
         this.emit("change");
-    }
-
-    getState() {
-        return this.containsData;
     }
 
     handleActions(action) {

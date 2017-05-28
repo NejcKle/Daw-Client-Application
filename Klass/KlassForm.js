@@ -27,7 +27,7 @@ export default class KlassForm extends React.Component {
   }
 
   changeCheck() {
-    this.setState({enrolment: !this.state.enrolment});
+    this.setState({ enrolment: !this.state.enrolment });
   }
 
   handleSubmit(event) {
@@ -39,16 +39,16 @@ export default class KlassForm extends React.Component {
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
         <label>
+          Id:
+          <input name="k_id" type="text" value={this.state.k_id} onChange={this.handleChange} required="true" />
+        </label>
+        <label>
           Name:
           <input name="identifier" type="text" value={this.state.identifier} onChange={this.handleChange} />
         </label>
         <label>
           Enrolment:
           <input name="enrolment" type="checkbox" onChange={this.changeCheck} checked={this.state.enrolment} />
-        </label>
-        <label>
-          Id:
-          <input name="k_id" type="text" value={this.state.k_id} onChange={this.handleChange} required="true" />
         </label>
         <input type="submit" value="Add Class" />
       </form>

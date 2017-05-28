@@ -1,19 +1,21 @@
 const React = require('react')
 
-import AddStudent from './StudentAdd'
+import AddTeacher from './TeacherAdd'
 
-export default class StudentForm extends React.Component {
+export default class TeacherForm extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       name: '',
       number: '',
-      s_id: '',
-      email: ''
+      t_id: '',
+      email: '',
+      admin: false
     }
 
     this.handleChange = this.handleChange.bind(this);
+    this.changeCheck = this.changeCheck.bind(this);
   }
 
   handleChange(event) {
@@ -26,9 +28,13 @@ export default class StudentForm extends React.Component {
     });
   }
 
+  changeCheck() {
+    this.setState({ admin: !this.state.admin });
+  }
+
   handleSubmit(event) {
     event.preventDefault();
-    AddStudent({ name: this.state.name, number: this.state.number, s_id: this.state.s_id, email: this.state.email });
+    AddTeacher({ name: this.state.name, number: this.state.number, t_id: this.state.t_id, email: this.state.email, admin: this.state.admin });
   }
 
   render() {
@@ -36,7 +42,7 @@ export default class StudentForm extends React.Component {
       <form onSubmit={this.handleSubmit.bind(this)}>
         <label>
           Id:
-          <input name="s_id" type="text" value={this.state.s_id} onChange={this.handleChange} required="true" />
+          <input name="t_id" type="text" value={this.state.t_id} onChange={this.handleChange} required="true" />
         </label>
         <label>
           Name:
@@ -50,7 +56,11 @@ export default class StudentForm extends React.Component {
           Email:
           <input name="email" type="email" value={this.state.email} onChange={this.handleChange} />
         </label>
-        <input type="submit" value="Add Student" />
+        <label>
+          Admin:
+          <input name="admin" type="checkbox" onChange={this.changeCheck} checked={this.state.admin} />
+        </label>
+        <input type="submit" value="Add Teacher" />
       </form>
     );
   }
