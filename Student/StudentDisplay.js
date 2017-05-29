@@ -1,30 +1,46 @@
 const React = require('react')
-
-import RemoveStudent from './StudentRemove'
+import { Link } from 'react-router-dom'
 
 export default (props) => {
     if (props.containsData) {
+        if (props.klasses_id.length > 0) {
+            return (
+                <div>
+                    <table>
+                        <tbody>
+                            <tr><th>Id</th><th>Name</th><th>Number</th><th>Email</th><th colSpan={props.klasses_id.length}>Enroled class</th></tr>
+                            <tr key={props.id}><td>{props.id}</td><td>{props.name}</td><td>{props.number}</td><td>{props.email}</td>
+                                {props.klasses_id.map(klass => (
+                                    <td key={klass}>
+                                        <Link to={'/classes/' + klass}>{klass}</Link>
+                                    </td>
+                                ))}
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            )
+        }
+
+        else {
+            return (
+                <div>
+                    <table>
+                        <tbody>
+                            <tr><th>Id</th><th>Name</th><th>Number</th><th>Email</th><th>Enroled class</th></tr>
+                            <tr key={props.id}><td>{props.id}</td><td>{props.name}</td><td>{props.number}</td><td>{props.email}</td><td>/</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            )
+        }
+    }
+
+    else {
         return (
             <div>
-                <table>
-                    <tbody>
-                        <tr><td>Id</td><td>Name</td><td>Number</td><td>Email</td></tr>
-                        {props.students.map(s => (
-                            <tr key={s.id}><td><a href={'/students/' + s.id}>{s.id}</a></td><td>{s.name}</td><td>{s.number}</td><td>{s.email}</td>
-                                <td><button type="button" onClick={() => RemoveStudent({ id: s.id })}>Remove</button></td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                <span>No data available!</span>
             </div>
         )
     }
-
-    else return (
-        <div>
-            <span>Student table contains no elements. </span>
-        </div>
-    )
 }
-
-                            //onClick={() => RemoveStudent({id: s.id})} binds the function to corresponding <tr>
