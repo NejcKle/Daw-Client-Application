@@ -30,5 +30,5 @@ export default (props) => {
       .catch(function(err) {
         console.log('Fetch Error :-S', err);
       })
-
+      //cannot remove teacher if teacher is connected to course
 }
