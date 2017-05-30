@@ -1,7 +1,7 @@
 const React = require('react')
 const fetch = require('isomorphic-fetch')
 import Teacher from './Teacher'
-import DisplayTeachers from './TeacherDisplay'
+import DisplayTeachers from './TeachersDisplay'
 import TeacherStore from './TeacherStore'
 
 export default class TeacherList extends React.Component {
