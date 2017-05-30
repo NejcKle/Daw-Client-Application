@@ -4,7 +4,6 @@ import TeacherForm from '../Teacher/TeacherForm'
 
 export default () => (
     <div>
-        <TeacherForm />
         <TeacherList />
     </div>
 )
