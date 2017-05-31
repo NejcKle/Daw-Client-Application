@@ -1,8 +1,8 @@
-import StudentDisplay from '../Student/StudentDisplay'
-import StudentForm from '../Student/StudentForm'
+import TeacherDisplay from '../Teacher/TeacherDisplay'
+import TeacherForm from '../Teacher/TeacherForm'
 const React = require('react')
 
-export default class StudentDetail extends React.Component {
+export default class TeacherDetail extends React.Component {
     constructor(props) {
         super(props);
 
@@ -10,18 +10,20 @@ export default class StudentDetail extends React.Component {
             containsData: false,
             name: '',
             number: '',
-            s_id: '',
             email: '',
+            id: '',
+            admin: '',
+            courses_id: [],
             klasses_id: []
         }
     }
 
     componentWillMount() {
+        //console.log(this.props.location.pathname);
         fetch('http://localhost:8080' + this.props.location.pathname)
             .then(
             (response) => {
                 if (response.status === 404) {
-                    //console.log(response.status);
                     //window.alert("No students in database");
                     this.setState({ containsData: false });
                 }
@@ -31,18 +33,30 @@ export default class StudentDetail extends React.Component {
                     response.text()
                         .then((data) => {
                             var obj = JSON.parse(data);
+                            //console.log(obj);
                             //console.log(obj.entities.length);
                             this.setState({ name: obj.properties.name });
                             this.setState({ id: obj.properties.id });
                             this.setState({ number: obj.properties.number });
                             this.setState({ email: obj.properties.email });
+                            this.setState({ admin: obj.properties.admin });
+
                             var klassArray = [];
+                            var courseArray = [];
                             //console.log(obj.entities.length);
                             for (var i = 0; i < obj.entities.length; i++) {
-                                klassArray.push(obj.entities[i].links[0].href.split('/').pop());
+                                //console.log(obj.entities[i].title);
+                                if (obj.entities[i].title === "class") {
+                                    klassArray.push(obj.entities[i].links[0].href.split('/').pop());
+                                }
+
+                                if (obj.entities[i].title === "course") {
+                                    courseArray.push(obj.entities[i].links[0].href.split('/').pop());
+                                }
                             }
+
                             this.setState({ klasses_id: klassArray });
-                            //console.log(obj.entities[0].links[0].href.split('/').pop()); --> extracts id of class
+                            this.setState({ courses_id: courseArray });
                         });
                 }
             }
@@ -50,15 +64,14 @@ export default class StudentDetail extends React.Component {
             .catch(function (err) {
                 console.log('Fetch Error :-S', err);
             })
-
-
     }
 
     render() {
         return (
             <div>
-                <StudentDisplay name={this.state.name} id={this.state.id} number={this.state.number} email={this.state.email} klasses_id={this.state.klasses_id} containsData={this.state.containsData} />
-                <StudentForm />
+                <h1> Teacher Detail </h1>
+                <TeacherDisplay name={this.state.name} id={this.state.id} number={this.state.number} email={this.state.email} admin={this.state.admin} klasses_id={this.state.klasses_id} courses_id={this.state.courses_id} containsData={this.state.containsData} />
+                <TeacherForm />
             </div>
         );
     }

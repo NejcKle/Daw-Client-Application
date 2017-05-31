@@ -3,7 +3,6 @@ import * as KlassActions from '../Actions/KlassActions'
 
 export default (props) => {
     var myHeaders = new Headers();
-
     var authorizationBasic = btoa("admin:admin");
 
     myHeaders.append('Authorization', 'Basic ' + authorizationBasic);
@@ -11,11 +10,7 @@ export default (props) => {
 
     //object containing data passed from form
     var klass = { identifier: props.identifier, enrolment: props.enrolment, id: props.k_id };
-
-    var data = JSON.stringify(
-        klass
-    )
-
+    var data = JSON.stringify(klass)
     var myInit = {
         method: 'POST',
         headers: myHeaders,

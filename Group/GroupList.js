@@ -1,7 +1,7 @@
 const React = require('react')
 const fetch = require('isomorphic-fetch')
 import Group from './Group'
-import DisplayGroups from './GroupDisplay'
+import DisplayGroups from './GroupsDisplay'
 import GroupStore from './GroupStore'
 
 export default class GroupList extends React.Component {
