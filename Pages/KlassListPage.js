@@ -1,10 +1,9 @@
 const React = require('react')
 import KlassList from '../Klass/KlassList'
-import KlassForm from '../Klass/KlassForm'
+import {Route} from 'react-router-dom'
 
 export default () => (
     <div>
-        <KlassForm />
         <KlassList />
     </div>
 )

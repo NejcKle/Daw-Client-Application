@@ -1,7 +1,7 @@
 const React = require('react')
 const fetch = require('isomorphic-fetch')
 import Klass from './Klass'
-import DisplayKlass from './KlassDisplay'
+import DisplayKlass from './KlassesDisplay'
 import KlassStore from './KlassStore'
 
 export default class KlassList extends React.Component {
