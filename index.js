@@ -6,6 +6,7 @@ import students from './Pages/StudentListPage'
 import student from './Pages/StudentDetail'
 import courses from './Pages/CourseListPage'
 import classes from './Pages/KlassListPage'
+import classesListed from './Pages/KlassListPageSorted'
 import groups from './Pages/GroupListPage'
 import teachers from './Pages/TeacherListPage'
 import teacher from './Pages/TeacherDetail'
@@ -20,7 +21,8 @@ const App = () => (
         <Route exact path='/teachers' component={teachers}></Route>
         <Route path='/teachers/:teacherId' component={teacher}></Route>
         <Route path='/courses' component={courses}></Route>
-        <Route path='/classes' component={classes}></Route>
+        <Route exact path='/classes' component={classes}></Route>
+        <Route path='/classes/listed' component={classesListed}></Route>
         <Route path='/groups' component={groups}></Route>
 
     </div>

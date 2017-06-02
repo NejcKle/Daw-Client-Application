@@ -50,8 +50,6 @@ export default class StudentDetail extends React.Component {
             .catch(function (err) {
                 console.log('Fetch Error :-S', err);
             })
-
-
     }
 
     render() {
