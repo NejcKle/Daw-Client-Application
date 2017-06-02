@@ -50,13 +50,12 @@ export default class StudentDetail extends React.Component {
             .catch(function (err) {
                 console.log('Fetch Error :-S', err);
             })
-
-
     }
 
     render() {
         return (
             <div>
+
                 <h1> Student Detail </h1>
                 <StudentDisplay name={this.state.name} id={this.state.id} number={this.state.number} email={this.state.email} klasses_id={this.state.klasses_id} containsData={this.state.containsData} />
                 <StudentForm />

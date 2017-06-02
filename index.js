@@ -7,6 +7,9 @@ import student from './Pages/StudentDetailPage'
 import courses from './Pages/CourseListPage'
 import course from './Pages/CourseDetailPage'
 import classes from './Pages/KlassListPage'
+
+import classesListed from './Pages/KlassListPageSorted'
+
 import klass from './Pages/KlassDetailPage'
 import groups from './Pages/GroupListPage'
 import group from './Pages/GroupDetailPage'
@@ -22,12 +25,18 @@ const App = () => (
         <Route path='/students/:studentId' component={student}></Route>
         <Route exact path='/teachers' component={teachers}></Route>
         <Route path='/teachers/:teacherId' component={teacher}></Route>
+
+
+
+
         <Route exact path='/courses' component={courses}></Route>
         <Route path='/courses/:courseId' component={course}></Route>
-        <Route exact path='/classes' component={classes}></Route>
         <Route path='/classes/:classId' component={klass}></Route>
+        <Route path='/classes/listed' component={classesListed}></Route>
+        <Route exact path='/classes' component={classes}></Route>
         <Route exact path='/groups' component={groups}></Route>
         <Route path='/groups/:groupId' component={group}></Route>
+
 
     </div>
 )
