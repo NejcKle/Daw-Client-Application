@@ -1,27 +1,40 @@
 const React = require('react')
-
-import RemoveCourse from './CourseRemove'
+import { Link } from 'react-router-dom'
 
 export default (props) => {
+    console.log(props);
     if (props.containsData) {
+        if (props.teacher_id !== '') {
+            console.log(props.teacher_id);
+            return (
+                <div>
+                    <table>
+                        <tbody>
+                            <tr><th>Id</th><th>Name</th><th>Acronim</th><th>Responsible teacher</th></tr>
+                            <tr key={props.id}><td>{props.id}</td><td>{props.name}</td><td>{props.acronim}</td><td><Link to={'/teachers/' + props.teacher_id}>{props.teacher_id}</Link></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            )
+        }
+        else {
+            return (
+             <div>
+                    <table>
+                        <tbody>
+                            <tr><th>Id</th><th>Name</th><th>Acronim</th><th>Responsible teacher</th></tr>
+                            <tr key={props.id}><td>{props.id}</td><td>{props.name}</td><td>{props.acronim}</td><td>/</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            )
+        }
+    }
+    else {
         return (
-            <div>
-                <table>
-                    <tbody>
-                        <tr><td>Id</td><td>Name</td><td>Acronim</td></tr>
-                        {props.courses.map(c => (
-                            <tr key={c.id}><td><a href={'/courses/' + c.id}>{c.id}</a></td><td>{c.name}</td><td>{c.acronim}</td>
-                                <td><button type="button" onClick={() => RemoveCourse({ id: c.id })}>Remove</button></td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+             <div>
+                <span>No data about courses available!</span>
             </div>
         )
     }
-    else return (
-        <div>
-            <span>Course table contains no elements. </span>
-        </div>
-    )
 }

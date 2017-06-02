@@ -55,6 +55,8 @@ export default class StudentDetail extends React.Component {
     render() {
         return (
             <div>
+
+                <h1> Student Detail </h1>
                 <StudentDisplay name={this.state.name} id={this.state.id} number={this.state.number} email={this.state.email} klasses_id={this.state.klasses_id} containsData={this.state.containsData} />
                 <StudentForm />
             </div>

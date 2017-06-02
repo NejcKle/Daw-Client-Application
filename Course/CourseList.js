@@ -1,7 +1,7 @@
 const React = require('react')
 const fetch = require('isomorphic-fetch')
-import Courses from './Course'
-import DisplayCourses from './CourseDisplay'
+import Course from './Course'
+import DisplayCourses from './CoursesDisplay'
 import CourseStore from './CourseStore'
 
 export default class CourseList extends React.Component {
@@ -30,7 +30,7 @@ export default class CourseList extends React.Component {
                             var numOfCourses = obj.entities.length;
                             var coursesArray = [];
                             for (var i = 0; i < numOfCourses; i++) {
-                                let CoursesTemp = new Courses(obj.entities[i].properties.name, obj.entities[i].properties.acronim, obj.entities[i].properties.id);
+                                let CoursesTemp = new Course(obj.entities[i].properties.name, obj.entities[i].properties.acronim, obj.entities[i].properties.id);
                                 coursesArray.push(CoursesTemp);
                             }
                             this.setState({ courses: coursesArray });
