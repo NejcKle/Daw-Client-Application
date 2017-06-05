@@ -6,7 +6,6 @@ import KlassConnectTeacher from '../Klass/KlassConnectTeacher'
 import KlassDisconnectTeacher from '../Klass/KlassDisconnectTeacher'
 
 export default (props) => {
-
     if (props.containsData) {
         //console.log(document.URL);
         var url = document.URL;
