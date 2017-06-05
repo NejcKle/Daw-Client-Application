@@ -11,7 +11,7 @@ export default (props) => {
                 <div>
                     <Table>
                         <tbody>
-                            <tr><td>Id</td><td>Name</td><td>Acronim</td></tr>
+                            <tr><th>Id</th><th>Name</th><th>Acronim</th></tr>
                             {props.courses.map(c => (
                                 <tr key={c.id}><td><Link to={'/courses/' + c.id}>{c.id}</Link></td><td>{c.name}</td><td>{c.acronim}</td>
                                     <td><Button type="button" bsStyle="primary" onClick={() => RemoveCourse({ id: c.id })}>Remove</Button></td>
@@ -27,7 +27,7 @@ export default (props) => {
                 <div>
                     <Table>
                         <tbody>
-                            <tr><td>Id</td><td>Name</td><td>Acronim</td></tr>
+                             <tr><th>Id</th><th>Name</th><th>Acronim</th></tr>
                             {props.courses.map(c => (
                                 <tr key={c.id}><td><Link to={'/courses/' + c.id}>{c.id}</Link></td><td>{c.name}</td><td>{c.acronim}</td>
                                 </tr>
