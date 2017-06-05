@@ -29,7 +29,7 @@ const App = () => (
         <Route exact path='/courses' component={courses} admin={false}></Route>
         <Route path='/courses/:courseId' component={course}></Route>
         <Route path='/classes/:classId' component={klass}></Route>
-        <Route path='/classes/listed' component={classesListed}></Route>
+        <Route path='/classes-listed' component={classesListed}></Route>
         <Route exact path='/classes' component={classes}></Route>
         <Route exact path='/groups' component={groups}></Route>
         <Route path='/groups/:groupId' component={group}></Route>

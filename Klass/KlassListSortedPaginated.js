@@ -1,7 +1,7 @@
 const React = require('react')
 const fetch = require('isomorphic-fetch')
 import Klass from './Klass'
-import DisplayKlass from './KlassDisplay'
+import DisplayKlasses from './KlassesDisplay'
 import KlassStore from './KlassStore'
 import * as KlassActions from '../Actions/KlassActions'
 
@@ -159,7 +159,7 @@ export default class KlassList extends React.Component {
     render() {
         return (
             <div>
-                <DisplayKlass klasses={this.state.klasses} containsData={this.state.containsData} />
+                <DisplayKlasses klasses={this.state.klasses} containsData={this.state.containsData} />
                 <button onClick={this.decrementButton} disabled={this.state.prevDisabled}>Prev</button>
                 <button onClick={this.incrementButton} disabled={this.state.nextDisabled}>Next</button>
             </div>

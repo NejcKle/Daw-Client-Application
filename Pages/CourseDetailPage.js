@@ -80,7 +80,7 @@ export default class CourseDetail extends React.Component {
                         <KlassForm />
                     </p>
                     <br />
-                    <Link to='/classes/'>All classes list</Link>
+                    <Link to='/classes-listed/'>All classes list</Link>
                 </div>
             );
         }
