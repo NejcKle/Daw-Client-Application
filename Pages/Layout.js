@@ -1,7 +1,6 @@
 const ReactDom = require('react-dom')
 const React = require('react')
 import {Link} from 'react-router-dom'
-import '../index.css';
 
 export default class Layout extends React.Component {
     render() {
