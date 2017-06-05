@@ -61,9 +61,13 @@ export default class KlassDetail extends React.Component {
                                     groupsArray.push(obj.entities[i].links[0].href.split('/').pop());
                                 }
                             }
+                            
+                            setTimeout(() => {
                             this.setState({ students_id: studentsArray });
                             this.setState({ teachers_id: teachersArray });
                             this.setState({ groups_id: groupsArray });
+                            }, 5)
+
                         });
                 }
             }
