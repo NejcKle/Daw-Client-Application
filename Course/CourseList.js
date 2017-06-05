@@ -16,6 +16,7 @@ export default class CourseList extends React.Component {
     }
 
     fetchData() {
+        //console.log("courseList adminn" + this.props.admin)
         fetch('http://localhost:8080/courses/')
             .then(
             (response) => {
@@ -44,7 +45,7 @@ export default class CourseList extends React.Component {
             })
     }
 
-     componentDidMount() {
+    componentDidMount() {
         CourseStore.on("change", this.fetchData);
     }
 
@@ -55,7 +56,7 @@ export default class CourseList extends React.Component {
     render() {
         return (
             <div>
-                <DisplayCourses courses={this.state.courses} containsData={this.state.containsData} />
+                <DisplayCourses courses={this.state.courses} containsData={this.state.containsData} admin={this.props.admin} />
             </div>
         )
     }

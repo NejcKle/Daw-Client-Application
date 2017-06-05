@@ -1,5 +1,6 @@
 import KlassDisplay from '../Klass/KlassDisplay'
 import TeacherForm from '../Teacher/TeacherForm'
+import TeacherList from '../Teacher/TeacherList'
 const React = require('react')
 
 export default class KlassDetail extends React.Component {
@@ -58,7 +59,7 @@ export default class KlassDetail extends React.Component {
             <div>
                 <h1> Class Detail </h1>
                 <KlassDisplay id={this.state.id} identifier={this.state.identifier} auto_enrolment={this.state.auto_enrolment} students_id={this.state.students_id} teachers_id={this.state.teachers_id} containsData={this.state.containsData} />
-                <TeacherForm />
+                <TeacherList />
             </div>
         );
     }
