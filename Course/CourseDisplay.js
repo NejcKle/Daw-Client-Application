@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 export default (props) => {
     if (props.containsData) {
-        console.log(props.teacher_id);
+        //console.log(props.teacher_id);
         return (
             <div>
                 <table>

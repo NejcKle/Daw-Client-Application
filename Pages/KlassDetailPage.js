@@ -15,6 +15,7 @@ export default class KlassDetail extends React.Component {
             id: '',
             identifier: '',
             auto_enrolment: '',
+            semester_id: '',
             students_id: [],
             groups_id: [],
             teachers_id: []
@@ -50,6 +51,7 @@ export default class KlassDetail extends React.Component {
                             var studentsArray = [];
                             var teachersArray = [];
                             var groupsArray = [];
+                            var semester;
                             for (var i = 0; i < obj.entities.length; i++) {
                                 if (obj.entities[i].title === "student") {
                                     studentsArray.push(obj.entities[i].links[0].href.split('/').pop());
@@ -60,12 +62,16 @@ export default class KlassDetail extends React.Component {
                                 if (obj.entities[i].title === "group") {
                                     groupsArray.push(obj.entities[i].links[0].href.split('/').pop());
                                 }
+                                if (obj.entities[i].title === "semester") {
+                                    semester = obj.entities[i].properties.name;
+                                }
                             }
                             
                             setTimeout(() => {
                             this.setState({ students_id: studentsArray });
                             this.setState({ teachers_id: teachersArray });
                             this.setState({ groups_id: groupsArray });
+                            this.setState({ semester_id: semester});
                             }, 5)
 
                         });
@@ -81,7 +87,7 @@ export default class KlassDetail extends React.Component {
             return (
                 <div>
                     <h1> Class Detail </h1>
-                    <KlassDisplay id={this.state.id} identifier={this.state.identifier} auto_enrolment={this.state.auto_enrolment} students_id={this.state.students_id} teachers_id={this.state.teachers_id} groups_id={this.state.groups_id} containsData={this.state.containsData} />
+                    <KlassDisplay id={this.state.id} identifier={this.state.identifier} auto_enrolment={this.state.auto_enrolment} students_id={this.state.students_id} teachers_id={this.state.teachers_id} groups_id={this.state.groups_id} semester_id={this.state.semester_id} containsData={this.state.containsData} />
                     <TeacherList classId={this.props.location.pathname} connectedTeachers={this.state.teachers_id} />
                     <StudentList classId={this.props.location.pathname} connectedStudents={this.state.students_id} />
                     <GroupList classId={this.props.location.pathname} connectedGroups={this.state.groups_id} />
@@ -90,7 +96,7 @@ export default class KlassDetail extends React.Component {
         }
         else {
             return (
-                <KlassDisplay id={this.state.id} identifier={this.state.identifier} auto_enrolment={this.state.auto_enrolment} students_id={this.state.students_id} teachers_id={this.state.teachers_id} groups_id={this.state.groups_id} containsData={this.state.containsData} />
+                <KlassDisplay id={this.state.id} identifier={this.state.identifier} auto_enrolment={this.state.auto_enrolment} students_id={this.state.students_id} teachers_id={this.state.teachers_id} groups_id={this.state.groups_id} semester_id={this.state.semester_id} containsData={this.state.containsData} />
             );
         }
     }

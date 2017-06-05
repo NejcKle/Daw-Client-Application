@@ -9,7 +9,8 @@ export default class KlassForm extends React.Component {
     this.state = {
       identifier: '',
       enrolment: false,
-      k_id: ''
+      k_id: '',
+      sem_id: ''
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -32,7 +33,11 @@ export default class KlassForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    AddKlass({ identifier: this.state.identifier, enrolment: this.state.enrolment, k_id: this.state.k_id });
+    AddKlass({ identifier: this.state.identifier, enrolment: this.state.enrolment, k_id: this.state.k_id, sem_id: this.state.sem_id });
+  }
+
+  setSem(event) {
+    this.setState({sem_id : event.target.value});
   }
 
   render() {
@@ -50,6 +55,11 @@ export default class KlassForm extends React.Component {
           Auto Enrolment:
           <input name="enrolment" type="checkbox" onChange={this.changeCheck} checked={this.state.enrolment} />
         </label>
+        <div onChange={this.setSem.bind(this)}>
+          Semester:
+          <input type="radio" value="win" name="semester" /> Winter
+          <input type="radio" value="sum" name="semester" /> Summer
+      </div>
         <input type="submit" value="Add Class" />
       </form>
     );
