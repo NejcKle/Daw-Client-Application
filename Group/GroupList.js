@@ -87,7 +87,7 @@ export default class GroupList extends React.Component {
     render() {
         return (
             <div>
-                <DisplayGroups containsData={this.state.containsData} containsData={this.state.containsData} classId={this.props.classId} connectedGroups={this.state.connectedGroups} notConnectedGroups={this.state.notConnectedGroups} />
+                <DisplayGroups groups={this.state.groups} containsData={this.state.containsData} classId={this.props.classId} connectedGroups={this.state.connectedGroups} notConnectedGroups={this.state.notConnectedGroups} />
             </div>
         )
     }

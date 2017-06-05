@@ -35,5 +35,6 @@ export default (props) => {
         })
         .catch(function (err) {
             console.log('Fetch Error :-S', err);
+            alert("Error connecting group with class. \nA group can only be connected with one class.");
         })
 }
