@@ -47,7 +47,7 @@ export default class KlassForm extends React.Component {
           <input name="identifier" type="text" value={this.state.identifier} onChange={this.handleChange} />
         </label>
         <label>
-          Enrolment:
+          Auto Enrolment:
           <input name="enrolment" type="checkbox" onChange={this.changeCheck} checked={this.state.enrolment} />
         </label>
         <input type="submit" value="Add Class" />

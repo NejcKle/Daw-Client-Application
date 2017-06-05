@@ -33,8 +33,6 @@ const App = () => (
         <Route exact path='/classes' component={classes}></Route>
         <Route exact path='/groups' component={groups}></Route>
         <Route path='/groups/:groupId' component={group}></Route>
-
-
     </div>
 )
 
