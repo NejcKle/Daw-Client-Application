@@ -10,7 +10,7 @@ export default class StudentDetail extends React.Component {
             containsData: false,
             name: '',
             number: '',
-            s_id: '',
+            id: '',
             email: '',
             klasses_id: []
         }
