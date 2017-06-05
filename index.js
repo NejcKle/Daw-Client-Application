@@ -19,16 +19,11 @@ import './index.css';
 
 const App = () => (
     <div>
-
         <Route exact path='/' component={Layout}></Route>
         <Route exact path='/students' component={students}></Route>
         <Route path='/students/:studentId' component={student}></Route>
         <Route exact path='/teachers' component={teachers}></Route>
         <Route path='/teachers/:teacherId' component={teacher}></Route>
-
-
-
-
         <Route exact path='/courses' component={courses}></Route>
         <Route path='/courses/:courseId' component={course}></Route>
         <Route path='/classes/:classId' component={klass}></Route>
@@ -36,8 +31,6 @@ const App = () => (
         <Route exact path='/classes' component={classes}></Route>
         <Route exact path='/groups' component={groups}></Route>
         <Route path='/groups/:groupId' component={group}></Route>
-
-
     </div>
 )
 

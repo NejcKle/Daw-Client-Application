@@ -12,7 +12,14 @@ class KlassStore extends EventEmitter {
     }
 
     addKlass() {
-        this.containsData = true;
+        this.emit("change");
+    }
+
+    connectKlass() {
+        this.emit("change");
+    }
+
+    disconnectKlass() {
         this.emit("change");
     }
 
@@ -24,6 +31,14 @@ class KlassStore extends EventEmitter {
             }
             case "REMOVE_KLASS": {
                 this.removeKlass();
+                break;
+            }
+            case "CONNECT_KLASS": {
+                this.connectKlass();
+                break;
+            }
+            case "DISCONNECT_KLASS": {
+                this.disconnectKlass();
                 break;
             }
         }

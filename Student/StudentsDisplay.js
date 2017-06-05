@@ -1,24 +1,54 @@
 const React = require('react')
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import RemoveStudent from './StudentRemove'
+import KlassConnectStudent from '../Klass/KlassConnectStudent'
+import KlassDisconnectStudent from '../Klass/KlassDisconnectStudent'
 
 export default (props) => {
     if (props.containsData) {
-        return (
-            <div>
-                <table>
-                    <tbody>
-                        <tr><td>Id</td><td>Name</td><td>Number</td><td>Email</td></tr>
-                        {props.students.map(s => (
-                            <tr key={s.id}><td><Link to={'/students/'+ s.id}>{s.id}</Link></td><td>{s.name}</td><td>{s.number}</td><td>{s.email}</td>
-                                <td><button type="button" onClick={() => RemoveStudent({ id: s.id })}>Remove</button></td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        )
+        var url = document.URL;
+        if (url.includes('/classes/')) {
+            return (
+                <div>
+                    <table>
+                        <tbody>
+                            <tr><td>Id</td><td>Name</td><td>Number</td><td>Email</td></tr>
+                            {props.notConnectedStudents.map(s => (
+                                <tr key={s.id}><td><Link to={'/students/' + s.id}>{s.id}</Link></td><td>{s.name}</td><td>{s.number}</td><td>{s.email}</td>
+                                    <td><button type="button" onClick={() => {
+                                        KlassConnectStudent({ studentId: s.id, classId: props.classId })
+                                    }}>Add student</button></td>
+                                </tr>
+                            ))}
+                            {props.connectedStudents.map(s => (
+                                <tr key={s.id}><td><Link to={'/students/' + s.id}>{s.id}</Link></td><td>{s.name}</td><td>{s.number}</td><td>{s.email}</td>
+                                    <td><button type="button" onClick={() => {
+                                        KlassDisconnectStudent({ studentId: s.id, classId: props.classId })
+                                    }}>Remove student</button></td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            )
+        }
+        else {
+            return (
+                <div>
+                    <table>
+                        <tbody>
+                            <tr><td>Id</td><td>Name</td><td>Number</td><td>Email</td></tr>
+                            {props.students.map(s => (
+                                <tr key={s.id}><td><Link to={'/students/' + s.id}>{s.id}</Link></td><td>{s.name}</td><td>{s.number}</td><td>{s.email}</td>
+                                    <td><button type="button" onClick={() => RemoveStudent({ id: s.id })}>Delete</button></td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            )
+        }
     }
 
     else return (

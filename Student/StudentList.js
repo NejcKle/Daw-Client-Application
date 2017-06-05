@@ -9,9 +9,12 @@ export default class StudentList extends React.Component {
         super(props);
 
         this.fetchData = this.fetchData.bind(this);
+
         this.state = {
             students: [],
-            containsData: false
+            containsData: false,
+            connectedStudents: [],
+            notConnectedStudents: []
         }
     }
 
@@ -37,6 +40,34 @@ export default class StudentList extends React.Component {
                                 studentArray.push(StudentTemp);
                             }
                             this.setState({ students: studentArray });
+                            setTimeout(() => {
+                                var connectedStudentsArray = [];
+                                var notConnectedStudentsArray = [];
+
+                                for (var j = 0; j < numOfStudents; j++) {
+                                    var added = false;
+                                    //console.log(this.props.connectedStudents);
+                                    for (var k = 0; k < this.props.connectedStudents.length; k++) {
+                                        //console.log(this.props.connectedStudents);
+                                        if (this.props.connectedStudents[k] === this.state.students[j].id) {
+
+                                            if (connectedStudentsArray.indexOf(this.state.students[j]) < 0) {
+                                                //console.log(this.state.students[j].id);
+                                                connectedStudentsArray.push(this.state.students[j]);
+                                                added = true;
+                                            }
+                                        }
+
+
+                                    }
+                                    if (!added) {
+                                        //console.log(this.state.teachers[j].id);
+                                        notConnectedStudentsArray.push(this.state.students[j]);
+                                    }
+
+                                }
+                                this.setState({ connectedStudents: connectedStudentsArray, notConnectedStudents: notConnectedStudentsArray });
+                            }, 500);
                         });
                 }
             }
@@ -57,7 +88,7 @@ export default class StudentList extends React.Component {
     render() {
         return (
             <div>
-                <DisplayStudents students={this.state.students} containsData={this.state.containsData} />
+                <DisplayStudents students={this.state.students} containsData={this.state.containsData} classId={this.props.classId} connectedStudents={this.state.connectedStudents} notConnectedStudents={this.state.notConnectedStudents} />
             </div>
         )
     }
