@@ -20,7 +20,7 @@ export default (props) => {
     //console.log(props.groupId + " " + class_id);
 
     //console.log(props);
-    var myRequest = new Request('http://localhost:8080/classes/' + class_id + '/' + props.groupId, myInit)
+    var myRequest = new Request('http://localhost:8080/classes/' + class_id + '/' + props.groupId, myInit);
 
     fetch(myRequest)
         .then(

@@ -67,17 +67,19 @@ export default class TeacherDetail extends React.Component {
     }
 
     render() {
-        if (this.state.containsData) {
+        if (this.props.admin === true) {
             return (
-                <div>
-                    <h1> Teacher Detail </h1>
-                    <TeacherDisplay name={this.state.name} id={this.state.id} number={this.state.number} email={this.state.email} admin={this.state.admin} klasses_id={this.state.klasses_id} courses_id={this.state.courses_id} containsData={this.state.containsData} />
-                    <TeacherForm />
-                </div>
-            );
+                 <div>
+                <h1> Teacher Detail </h1>
+                <TeacherDisplay name={this.state.name} id={this.state.id} number={this.state.number} email={this.state.email} admin={this.state.admin} klasses_id={this.state.klasses_id} courses_id={this.state.courses_id} containsData={this.state.containsData} admin={this.props.admin} />
+                <TeacherForm />
+            </div>
+            )
         }
+
         else {
             return (
+
                 <TeacherDisplay name={this.state.name} id={this.state.id} number={this.state.number} email={this.state.email} admin={this.state.admin} klasses_id={this.state.klasses_id} courses_id={this.state.courses_id} containsData={this.state.containsData} />
             );
         }
