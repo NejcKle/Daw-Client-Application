@@ -17,22 +17,13 @@ import teachers from './Pages/TeacherListPage'
 import teacher from './Pages/TeacherDetailPage'
 import login from './Login/LoginPage'
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css'
+import Nav from './Navigation.js'
 
 const App = () => (
     <div>
 
-        <Route exact path='/' component={login}></Route>
-        <Route exact path='/students' component={students}></Route>
-        <Route path='/students/:studentId' component={student}></Route>
-        <Route exact path='/teachers' component={teachers}></Route>
-        <Route path='/teachers/:teacherId' component={teacher}></Route>
-        <Route exact path='/courses' component={courses} admin={false}></Route>
-        <Route path='/courses/:courseId' component={course}></Route>
-        <Route path='/classes/:classId' component={klass}></Route>
-        <Route path='/classes/listed' component={classesListed}></Route>
-        <Route exact path='/classes' component={classes}></Route>
-        <Route exact path='/groups' component={groups}></Route>
-        <Route path='/groups/:groupId' component={group}></Route>
+        <Nav/>
+
     </div>
 )
 

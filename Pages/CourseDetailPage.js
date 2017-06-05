@@ -29,7 +29,8 @@ export default class CourseDetail extends React.Component {
     }
 
     fetchData() {
-        fetch('http://localhost:8080' + this.props.location.pathname)
+        console.log(window.location.pathname);
+        fetch('http://localhost:8080' + window.location.pathname)
             .then(
             (response) => {
                 //console.log(response);
@@ -70,7 +71,7 @@ export default class CourseDetail extends React.Component {
     }
 
     render() {
-        if (this.state.containsData) {
+        if (this.state.containsData && this.props.admin === true) {
             return (
                 <div>
                     <h1> Course Detail </h1>
