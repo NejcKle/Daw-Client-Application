@@ -1,5 +1,7 @@
 import TeacherDisplay from '../Teacher/TeacherDisplay'
 import TeacherForm from '../Teacher/TeacherForm'
+
+import { Link } from 'react-router-dom'
 const React = require('react')
 
 export default class TeacherDetail extends React.Component {
@@ -69,18 +71,23 @@ export default class TeacherDetail extends React.Component {
     render() {
         if (this.props.admin === true) {
             return (
-                 <div>
-                <h1> Teacher Detail </h1>
-                <TeacherDisplay name={this.state.name} id={this.state.id} number={this.state.number} email={this.state.email} admin={this.state.admin} klasses_id={this.state.klasses_id} courses_id={this.state.courses_id} containsData={this.state.containsData} admin={this.props.admin} />
-                <TeacherForm />
-            </div>
+                <div>
+                    <h1> Teacher Detail </h1>
+                    <TeacherDisplay name={this.state.name} id={this.state.id} number={this.state.number} email={this.state.email} admin={this.state.admin} klasses_id={this.state.klasses_id} courses_id={this.state.courses_id} containsData={this.state.containsData} admin={this.props.admin} />
+                    <TeacherForm />
+                    <br />
+                    <Link to='/courses/'>All courses list</Link>
+                </div>
             )
         }
 
         else {
             return (
-
-                <TeacherDisplay name={this.state.name} id={this.state.id} number={this.state.number} email={this.state.email} admin={this.state.admin} klasses_id={this.state.klasses_id} courses_id={this.state.courses_id} containsData={this.state.containsData} />
+                <div>
+                    <TeacherDisplay name={this.state.name} id={this.state.id} number={this.state.number} email={this.state.email} admin={this.state.admin} klasses_id={this.state.klasses_id} courses_id={this.state.courses_id} containsData={this.state.containsData} />
+                    <br />
+                    <Link to='/courses/'>All courses list</Link>
+                </div>
             );
         }
     }

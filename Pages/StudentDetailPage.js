@@ -1,5 +1,7 @@
 import StudentDisplay from '../Student/StudentDisplay'
 import StudentForm from '../Student/StudentForm'
+
+import { Link } from 'react-router-dom'
 const React = require('react')
 
 export default class StudentDetail extends React.Component {
@@ -65,12 +67,19 @@ export default class StudentDetail extends React.Component {
                     <h1>Student Detail</h1>
                     <StudentDisplay name={this.state.name} id={this.state.id} number={this.state.number} email={this.state.email} klasses_id={this.state.klasses_id} containsData={this.state.containsData} />
                     <StudentForm />
+                    <br/>
+                    <Link to='/courses/'>All courses list</Link>
                 </div>
             );
         }
         else {
             return (
-                <StudentDisplay name={this.state.name} id={this.state.id} number={this.state.number} email={this.state.email} klasses_id={this.state.klasses_id} containsData={this.state.containsData} />
+                <div>
+                    <h1>Student Detail</h1>
+                    <StudentDisplay name={this.state.name} id={this.state.id} number={this.state.number} email={this.state.email} klasses_id={this.state.klasses_id} containsData={this.state.containsData} />
+                    <br/>
+                    <Link to='/courses/'>All courses list</Link>
+                </div>
             );
         }
     }

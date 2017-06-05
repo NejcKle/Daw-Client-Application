@@ -21,9 +21,7 @@ import Nav from './Navigation.js'
 
 const App = () => (
     <div>
-
         <Nav/>
-
     </div>
 )
 
