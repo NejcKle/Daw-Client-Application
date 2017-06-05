@@ -11,7 +11,9 @@ export default class GroupList extends React.Component {
         this.fetchData = this.fetchData.bind(this);
         this.state = {
             groups: [],
-            containsData: false
+            containsData: false,
+            connectedGroups: [],
+            notConnectedGroups: []
         }
     }
 
@@ -37,6 +39,34 @@ export default class GroupList extends React.Component {
                             }
                             
                             this.setState({ groups: GroupsArray });
+                            setTimeout(() => {
+                                var connectedGroupsArray = [];
+                                var notConnectedGroupsArray = [];
+
+                                for (var j = 0; j < numOfGroups; j++) {
+                                    var added = false;
+                                    //console.log(this.props.connectedGroups);
+                                    for (var k = 0; k < this.props.connectedGroups.length; k++) {
+                                        //console.log(this.props.connectedGroups);
+                                        if (this.props.connectedGroups[k] === this.state.groups[j].id) {
+
+                                            if (connectedGroupsArray.indexOf(this.state.groups[j]) < 0) {
+                                                //console.log(this.state.groups[j].id);
+                                                connectedGroupsArray.push(this.state.groups[j]);
+                                                added = true;
+                                            }
+                                        }
+
+
+                                    }
+                                        if(!added) {
+                                            //console.log(this.state.groups[j].id);
+                                            notConnectedGroupsArray.push(this.state.groups[j]);
+                                        }
+
+                                }
+                                this.setState({ connectedGroups: connectedGroupsArray, notConnectedGroups: notConnectedGroupsArray });
+                            }, 500);
                         });
                 }
             }
@@ -57,7 +87,7 @@ export default class GroupList extends React.Component {
     render() {
         return (
             <div>
-                <DisplayGroups groups={this.state.groups} containsData={this.state.containsData} />
+                <DisplayGroups groups={this.state.groups} containsData={this.state.containsData} containsData={this.state.containsData} classId={this.props.classId} connectedGroups={this.state.connectedGroups} notConnectedGroups={this.state.notConnectedGroups} />
             </div>
         )
     }
