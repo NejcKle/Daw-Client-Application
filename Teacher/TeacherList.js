@@ -9,9 +9,12 @@ export default class TeacherList extends React.Component {
         super(props);
 
         this.fetchData = this.fetchData.bind(this);
+
         this.state = {
             teachers: [],
-            containsData: false
+            containsData: false,
+            connectedTeachers: [],
+            notConnectedTeachers: []
         }
     }
 
@@ -37,6 +40,36 @@ export default class TeacherList extends React.Component {
                                 teacherArray.push(TeacherTemp);
                             }
                             this.setState({ teachers: teacherArray });
+                            //console.log(this.state.teachers);
+
+                            setTimeout(() => {
+                                var connectedTeachersArray = [];
+                                var notConnectedTeachersArray = [];
+
+                                for (var j = 0; j < numOfTeachers; j++) {
+                                    var added = false;
+                                    //console.log(this.props.connectedTeachers);
+                                    for (var k = 0; k < this.props.connectedTeachers.length; k++) {
+                                        //console.log(this.props.connectedTeachers);
+                                        if (this.props.connectedTeachers[k] === this.state.teachers[j].id) {
+
+                                            if (connectedTeachersArray.indexOf(this.state.teachers[j]) < 0) {
+                                                //console.log(this.state.teachers[j].id);
+                                                connectedTeachersArray.push(this.state.teachers[j]);
+                                                added = true;
+                                            }
+                                        }
+
+
+                                    }
+                                        if(!added) {
+                                            //console.log(this.state.teachers[j].id);
+                                            notConnectedTeachersArray.push(this.state.teachers[j]);
+                                        }
+
+                                }
+                                this.setState({ connectedTeachers: connectedTeachersArray, notConnectedTeachers: notConnectedTeachersArray });
+                            }, 500);
                         });
                 }
             }
@@ -57,7 +90,7 @@ export default class TeacherList extends React.Component {
     render() {
         return (
             <div>
-                <DisplayTeachers teachers={this.state.teachers} containsData={this.state.containsData} />
+                <DisplayTeachers containsData={this.state.containsData} classId={this.props.classId} connectedTeachers={this.state.connectedTeachers} notConnectedTeachers={this.state.notConnectedTeachers} />
             </div>
         )
     }

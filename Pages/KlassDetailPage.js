@@ -1,6 +1,9 @@
 import KlassDisplay from '../Klass/KlassDisplay'
-import TeacherForm from '../Teacher/TeacherForm'
+
 import TeacherList from '../Teacher/TeacherList'
+import StudentList from '../Student/StudentList'
+import KlassStore from '../Klass/KlassStore'
+
 const React = require('react')
 
 export default class KlassDetail extends React.Component {
@@ -16,9 +19,19 @@ export default class KlassDetail extends React.Component {
             //group_id: [],
             teachers_id: []
         }
+
+        this.fetchData = this.fetchData.bind(this);
     }
 
-    componentWillMount() {
+componentWillMount() {
+    this.fetchData();
+}
+
+componentDidMount() {
+    KlassStore.on("change", this.fetchData);
+}
+
+    fetchData() {
         fetch('http://localhost:8080' + this.props.location.pathname)
             .then(
             (response) => {
@@ -59,7 +72,9 @@ export default class KlassDetail extends React.Component {
             <div>
                 <h1> Class Detail </h1>
                 <KlassDisplay id={this.state.id} identifier={this.state.identifier} auto_enrolment={this.state.auto_enrolment} students_id={this.state.students_id} teachers_id={this.state.teachers_id} containsData={this.state.containsData} />
-                <TeacherList />
+                <TeacherList classId={this.props.location.pathname} connectedTeachers={this.state.teachers_id}/>
+                <StudentList classId={this.props.location.pathname} connectedStudents={this.state.students_id}/>
+
             </div>
         );
     }
