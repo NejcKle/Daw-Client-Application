@@ -1,6 +1,7 @@
 const React = require('react')
 
 import AddGroup from './GroupAdd'
+import { FormControl, Button } from 'react-bootstrap'
 
 export default class GroupForm extends React.Component {
   constructor(props) {
@@ -35,17 +36,17 @@ export default class GroupForm extends React.Component {
       <form onSubmit={this.handleSubmit.bind(this)}>
         <label>
           Id:
-          <input name="g_id" type="text" value={this.state.g_id} onChange={this.handleChange} required="true"/>
+          <FormControl name="g_id" type="text" value={this.state.g_id} onChange={this.handleChange} required="true"/>
         </label>
         <label>
           Name:
-          <input name="name" type="text" value={this.state.name} onChange={this.handleChange} />
+          <FormControl name="name" type="text" value={this.state.name} onChange={this.handleChange} />
         </label>
         <label>
           Students limit:
-          <input name="students_limit" type="number" value={this.state.students_limit} onChange={this.handleChange} />
+          <FormControl name="students_limit" type="number" value={this.state.students_limit} onChange={this.handleChange} />
         </label>
-        <input type="submit" value="Add Group" />
+        <Button type="submit">Add Group</Button>
       </form>
     );
   }

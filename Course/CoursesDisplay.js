@@ -1,5 +1,5 @@
 const React = require('react')
-import {Button} from 'react-bootstrap'
+import {Button, Table} from 'react-bootstrap'
 import RemoveCourse from './CourseRemove'
 import {Link} from 'react-router-dom'
 
@@ -9,7 +9,7 @@ export default (props) => {
         if (props.admin === true) {
             return (
                 <div>
-                    <table>
+                    <Table>
                         <tbody>
                             <tr><td>Id</td><td>Name</td><td>Acronim</td></tr>
                             {props.courses.map(c => (
@@ -18,14 +18,14 @@ export default (props) => {
                                 </tr>
                             ))}
                         </tbody>
-                    </table>
+                    </Table>
                 </div>
             )
         }
         else {
             return (
                 <div>
-                    <table>
+                    <Table>
                         <tbody>
                             <tr><td>Id</td><td>Name</td><td>Acronim</td></tr>
                             {props.courses.map(c => (
@@ -33,7 +33,7 @@ export default (props) => {
                                 </tr>
                             ))}
                         </tbody>
-                    </table>
+                    </Table>
                 </div>
             )
         }

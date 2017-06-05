@@ -1,4 +1,5 @@
 const React = require('react')
+import {Button, Table, FormControl} from 'react-bootstrap'
 
 import AddStudent from './StudentAdd'
 
@@ -36,21 +37,21 @@ export default class StudentForm extends React.Component {
       <form onSubmit={this.handleSubmit.bind(this)}>
         <label>
           Id:
-          <input name="s_id" type="text" value={this.state.s_id} onChange={this.handleChange} required="true" />
+          <FormControl name="s_id" type="text" value={this.state.s_id} onChange={this.handleChange} required="true" />
         </label>
         <label>
           Name:
-          <input name="name" type="text" value={this.state.name} onChange={this.handleChange} />
+          <FormControl name="name" type="text" value={this.state.name} onChange={this.handleChange} />
         </label>
         <label>
           Number:
-          <input name="number" type="text" value={this.state.number} onChange={this.handleChange} />
+          <FormControl name="number" type="text" value={this.state.number} onChange={this.handleChange} />
         </label>
         <label>
           Email:
-          <input name="email" type="email" value={this.state.email} onChange={this.handleChange} />
+          <FormControl name="email" type="email" value={this.state.email} onChange={this.handleChange} />
         </label>
-        <input type="submit" value="Add Student" />
+        <Button type="submit">Add Student</Button>
       </form>
     );
   }

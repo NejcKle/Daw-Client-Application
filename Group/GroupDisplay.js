@@ -1,12 +1,13 @@
 const React = require('react')
 import { Link } from 'react-router-dom'
+import {Button, Table} from 'react-bootstrap'
 
 export default (props) => {
     if (props.containsData) {
         if (props.students_id.length > 0 && props.klass_id !== '') {
              return (
                 <div>
-                    <table>
+                    <Table>
                         <tbody>
                             <tr><th>Id</th><th>Name</th><th>Students limit</th><th>Class</th><th colSpan={props.students_id.length}>Students</th></tr>
                             <tr key={props.id}><td>{props.id}</td><td>{props.name}</td><td>{props.students_limit}</td><td><Link to={'/classes/' + props.klass_id}>{props.klass_id}</Link></td>
@@ -16,14 +17,14 @@ export default (props) => {
                                 ))}
                             </tr>
                         </tbody>
-                    </table>
+                    </Table>
                 </div>
             )
         }
         else if (props.students_id.length > 0) {
             return (
                 <div>
-                    <table>
+                    <Table>
                         <tbody>
                             <tr><th>Id</th><th>Name</th><th>Students limit</th><th>Class</th><th colSpan={props.students_id.length}>Students</th></tr>
                             <tr key={props.id}><td>{props.id}</td><td>{props.name}</td><td>{props.students_limit}</td><td>/</td>
@@ -33,31 +34,31 @@ export default (props) => {
                                 ))}
                             </tr>
                         </tbody>
-                    </table>
+                    </Table>
                 </div>
             )
         }
         else if (props.klass_id !== '') {
             return (
                 <div>
-                    <table>
+                    <Table>
                         <tbody>
                             <tr><th>Id</th><th>Name</th><th>Students limit</th><th>Class</th><th colSpan={props.students_id.length}>Students</th></tr>
                             <tr key={props.id}><td>{props.id}</td><td>{props.name}</td><td>{props.students_limit}</td><td><Link to={'/classes/' + props.klass_id}>{props.klass_id}</Link></td><td>/</td></tr>
                         </tbody>
-                    </table>
+                    </Table>
                 </div>
             )
         }
         else {
             return (
                 <div>
-                    <table>
+                    <Table>
                         <tbody>
                             <tr><th>Id</th><th>Name</th><th>Students limit</th><th>Class</th><th colSpan={props.students_id.length}>Students</th></tr>
                             <tr key={props.id}><td>{props.id}</td><td>{props.name}</td><td>{props.students_limit}</td><td>/</td><td>/</td></tr>
                         </tbody>
-                    </table>
+                    </Table>
                 </div>
             )
         }

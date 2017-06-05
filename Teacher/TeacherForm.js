@@ -1,6 +1,7 @@
 const React = require('react')
 
 import AddTeacher from './TeacherAdd'
+import {FormControl, Button} from 'react-bootstrap'
 
 export default class TeacherForm extends React.Component {
   constructor(props) {
@@ -42,25 +43,25 @@ export default class TeacherForm extends React.Component {
       <form onSubmit={this.handleSubmit.bind(this)}>
         <label>
           Id:
-          <input name="t_id" type="text" value={this.state.t_id} onChange={this.handleChange} required="true" />
+          <FormControl name="t_id" type="text" value={this.state.t_id} onChange={this.handleChange} required="true" />
         </label>
         <label>
           Name:
-          <input name="name" type="text" value={this.state.name} onChange={this.handleChange} />
+          <FormControl name="name" type="text" value={this.state.name} onChange={this.handleChange} />
         </label>
         <label>
           Number:
-          <input name="number" type="text" value={this.state.number} onChange={this.handleChange} />
+          <FormControl name="number" type="text" value={this.state.number} onChange={this.handleChange} />
         </label>
         <label>
           Email:
-          <input name="email" type="email" value={this.state.email} onChange={this.handleChange} />
+          <FormControl name="email" type="email" value={this.state.email} onChange={this.handleChange} />
         </label>
         <label>
           Admin:
-          <input name="admin" type="checkbox" onChange={this.changeCheck} checked={this.state.admin} />
+          <FormControl name="admin" type="checkbox" onChange={this.changeCheck} checked={this.state.admin} />
         </label>
-        <input type="submit" value="Add Teacher" />
+        <Button type="submit">Add Teacher</Button>
       </form>
     );
   }

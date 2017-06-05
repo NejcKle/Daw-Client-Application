@@ -71,23 +71,35 @@ export default class CourseDetail extends React.Component {
     }
 
     render() {
-        if (this.state.containsData && this.props.admin === true) {
+        if (this.state.containsData && this.props.loggedIn) {
+            if (this.props.admin === true) {
+                return (
+                    <div>
+                        <h1> Course Detail </h1>
+                        <CourseDisplay name={this.state.name} id={this.state.id} acronim={this.state.acronim} containsData={this.state.containsData} teacher_id={this.state.teacher_id} classes_id={this.state.classes_id} />
+                        <p>Create new class to this course:</p>
+                        <KlassForm />
+                        <Link to='/classes'>All classes list</Link>
+                    </div>
+                );
+            }
+            else {
+                return (
+                    <div>
+                        <h1> Course Detail </h1>
+                        <CourseDisplay name={this.state.name} id={this.state.id} acronim={this.state.acronim} containsData={this.state.containsData} teacher_id={this.state.teacher_id} classes_id={this.state.classes_id} />
+                        <Link to='/classes'>All classes list</Link>
+                    </div>
+                )
+            }
+        }
+
+        else {
             return (
                 <div>
                     <h1> Course Detail </h1>
                     <CourseDisplay name={this.state.name} id={this.state.id} acronim={this.state.acronim} containsData={this.state.containsData} teacher_id={this.state.teacher_id} classes_id={this.state.classes_id} />
-                    <br />
-                    <p>Create new class to this course:<br />
-                        <KlassForm />
-                    </p>
-                    <br />
-                    <Link to='/classes-listed/'>All classes list</Link>
                 </div>
-            );
-        }
-        else {
-            return (
-                <CourseDisplay name={this.state.name} id={this.state.id} acronim={this.state.acronim} containsData={this.state.containsData} teacher_id={this.state.teacher_id} classes_id={this.state.classes_id} />
             )
         }
     }

@@ -7,6 +7,7 @@ export default (props) => {
     if (props.admin === true) {
         return (
             <div>
+                <h1> Course List </h1>
                 <CourseList admin={props.admin} />
                 <CourseForm />
             </div>
@@ -14,6 +15,11 @@ export default (props) => {
     }
 
     else {
-        return (<CourseList admin={props.admin} />)
+        return (
+            <div>
+                <h1> Course List </h1>
+                <CourseList admin={props.admin} />
+            </div>
+        )
     }
 }
