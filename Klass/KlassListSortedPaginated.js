@@ -4,6 +4,7 @@ import Klass from './Klass'
 import DisplayKlasses from './KlassesDisplay'
 import KlassStore from './KlassStore'
 import * as KlassActions from '../Actions/KlassActions'
+import {Button, Table} from 'react-bootstrap'
 
 export default class KlassList extends React.Component {
     constructor(props) {
@@ -160,8 +161,8 @@ export default class KlassList extends React.Component {
         return (
             <div>
                 <DisplayKlasses klasses={this.state.klasses} containsData={this.state.containsData} />
-                <button onClick={this.decrementButton} disabled={this.state.prevDisabled}>Prev</button>
-                <button onClick={this.incrementButton} disabled={this.state.nextDisabled}>Next</button>
+                <Button onClick={this.decrementButton} disabled={this.state.prevDisabled}>Prev</Button>
+                <Button onClick={this.incrementButton} disabled={this.state.nextDisabled}>Next</Button>
             </div>
         )
     }

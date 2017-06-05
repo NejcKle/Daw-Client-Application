@@ -33,7 +33,8 @@ export default class KlassDetail extends React.Component {
     }
 
     fetchData() {
-        fetch('http://localhost:8080' + this.props.location.pathname)
+                console.log(window.location.pathname);
+        fetch('http://localhost:8080' + window.location.pathname)
             .then(
             (response) => {
                 if (response.status === 404) {
@@ -66,12 +67,14 @@ export default class KlassDetail extends React.Component {
                                     semester = obj.entities[i].properties.name;
                                 }
                             }
-                            
+
                             setTimeout(() => {
+
                             this.setState({ students_id: studentsArray });
                             this.setState({ teachers_id: teachersArray });
                             this.setState({ groups_id: groupsArray });
                             this.setState({ semester_id: semester});
+
                             }, 5)
 
                         });
@@ -83,20 +86,27 @@ export default class KlassDetail extends React.Component {
             })
     }
     render() {
-        if (this.state.containsData) {
+        if (this.state.containsData && this.props.admin === true) {
             return (
                 <div>
                     <h1> Class Detail </h1>
+
                     <KlassDisplay id={this.state.id} identifier={this.state.identifier} auto_enrolment={this.state.auto_enrolment} students_id={this.state.students_id} teachers_id={this.state.teachers_id} groups_id={this.state.groups_id} semester_id={this.state.semester_id} containsData={this.state.containsData} />
                     <TeacherList classId={this.props.location.pathname} connectedTeachers={this.state.teachers_id} />
                     <StudentList classId={this.props.location.pathname} connectedStudents={this.state.students_id} />
                     <GroupList classId={this.props.location.pathname} connectedGroups={this.state.groups_id} />
+
                 </div>
             );
         }
         else {
             return (
-                <KlassDisplay id={this.state.id} identifier={this.state.identifier} auto_enrolment={this.state.auto_enrolment} students_id={this.state.students_id} teachers_id={this.state.teachers_id} groups_id={this.state.groups_id} semester_id={this.state.semester_id} containsData={this.state.containsData} />
+
+                <div>
+                    <h1> Class Detail </h1>
+                    <KlassDisplay id={this.state.id} identifier={this.state.identifier} auto_enrolment={this.state.auto_enrolment} students_id={this.state.students_id} teachers_id={this.state.teachers_id} groups_id={this.state.groups_id} semester_id={this.state.semester_id} containsData={this.state.containsData} />
+                </div>
+
             );
         }
     }

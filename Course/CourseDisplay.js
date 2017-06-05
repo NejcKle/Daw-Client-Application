@@ -1,12 +1,13 @@
 const React = require('react')
 import { Link } from 'react-router-dom'
+import { Table } from 'react-bootstrap'
 
 export default (props) => {
     if (props.containsData) {
-        //console.log(props.teacher_id);
+
         return (
             <div>
-                <table>
+                <Table>
                     <tbody>
                         <tr><th>Id</th><th>Name</th><th>Acronim</th><th>Responsible teacher</th><th colSpan={props.classes_id.length}>Classes</th></tr>
                         <tr key={props.id}><td>{props.id}</td><td>{props.name}</td><td>{props.acronim}</td>
@@ -20,7 +21,7 @@ export default (props) => {
                         </tr>
 
                     </tbody>
-                </table>
+                </Table>
             </div>
         )
     }

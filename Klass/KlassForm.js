@@ -1,6 +1,7 @@
 const React = require('react')
 
 import AddKlass from './KlassAdd'
+import { FormControl, Button } from 'react-bootstrap'
 
 export default class KlassForm extends React.Component {
   constructor(props) {
@@ -45,22 +46,25 @@ export default class KlassForm extends React.Component {
       <form onSubmit={this.handleSubmit.bind(this)}>
         <label>
           Id:
-          <input name="k_id" type="text" value={this.state.k_id} onChange={this.handleChange} required="true" />
+          <FormControl name="k_id" type="text" value={this.state.k_id} onChange={this.handleChange} required="true" />
         </label>
         <label>
           Name:
-          <input name="identifier" type="text" value={this.state.identifier} onChange={this.handleChange} />
+          <FormControl name="identifier" type="text" value={this.state.identifier} onChange={this.handleChange} />
         </label>
         <label>
           Auto Enrolment:
-          <input name="enrolment" type="checkbox" onChange={this.changeCheck} checked={this.state.enrolment} />
+          <FormControl name="enrolment" type="checkbox" onChange={this.changeCheck} checked={this.state.enrolment} />
         </label>
+
         <div onChange={this.setSem.bind(this)}>
           Semester:
-          <input type="radio" value="win" name="semester" /> Winter
-          <input type="radio" value="sum" name="semester" /> Summer
+          <FormControl type="radio" value="win" name="semester" /> Winter
+          <FormControl type="radio" value="sum" name="semester" /> Summer
       </div>
-        <input type="submit" value="Add Class" />
+
+        <Button type="submit">Add Class</Button>
+
       </form>
     );
   }

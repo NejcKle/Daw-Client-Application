@@ -1,6 +1,7 @@
 const React = require('react')
 
 import AddCourse from './CourseAdd'
+import {FormControl, Button} from 'react-bootstrap'
 
 export default class CourseForm extends React.Component {
   constructor(props) {
@@ -35,17 +36,17 @@ export default class CourseForm extends React.Component {
       <form onSubmit={this.handleSubmit.bind(this)}>
         <label>
           Id:
-          <input name="c_id" type="text" value={this.state.c_id} onChange={this.handleChange} required="true" />
+          <FormControl name="c_id" type="text" value={this.state.c_id} onChange={this.handleChange} required="true" />
         </label>
         <label>
           Name:
-          <input name="name" type="text" value={this.state.name} onChange={this.handleChange} />
+          <FormControl name="name" type="text" value={this.state.name} onChange={this.handleChange} />
         </label>
         <label>
           Acronim:
-          <input name="acronim" type="text" value={this.state.acronim} onChange={this.handleChange} />
+          <FormControl name="acronim" type="text" value={this.state.acronim} onChange={this.handleChange} />
         </label>
-        <input type="submit" value="Add Course" />
+        <Button type="submit">Add Course</Button>
       </form>
     );
   }

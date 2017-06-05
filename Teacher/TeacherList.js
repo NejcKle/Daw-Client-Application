@@ -89,6 +89,7 @@ export default class TeacherList extends React.Component {
     render() {
         return (
             <div>
+                <h2> Teacher List </h2>
                 <DisplayTeachers containsData={this.state.containsData} classId={this.props.classId} connectedTeachers={this.state.connectedTeachers} notConnectedTeachers={this.state.notConnectedTeachers} />
             </div>
         )
