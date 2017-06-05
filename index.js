@@ -16,7 +16,7 @@ import group from './Pages/GroupDetailPage'
 import teachers from './Pages/TeacherListPage'
 import teacher from './Pages/TeacherDetailPage'
 import login from './Login/LoginPage'
-import './index.css';
+import Bootstrap from 'bootstrap/dist/css/bootstrap.css'
 
 const App = () => (
     <div>
