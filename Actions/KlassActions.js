@@ -11,3 +11,15 @@ export function removeKlass() {
         type: "REMOVE_KLASS",
     })
 }
+
+export function connectKlass() {
+    Dispatcher.dispatch({
+        type: "CONNECT_KLASS",
+    })
+}
+
+export function disconnectKlass() {
+    Dispatcher.dispatch({
+        type: "DISCONNECT_KLASS",
+    })
+}
