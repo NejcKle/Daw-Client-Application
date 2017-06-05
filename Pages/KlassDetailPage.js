@@ -1,7 +1,9 @@
 import KlassDisplay from '../Klass/KlassDisplay'
+
 import TeacherList from '../Teacher/TeacherList'
 import StudentList from '../Student/StudentList'
 import KlassStore from '../Klass/KlassStore'
+
 const React = require('react')
 
 export default class KlassDetail extends React.Component {
@@ -72,6 +74,7 @@ componentDidMount() {
                 <KlassDisplay id={this.state.id} identifier={this.state.identifier} auto_enrolment={this.state.auto_enrolment} students_id={this.state.students_id} teachers_id={this.state.teachers_id} containsData={this.state.containsData} />
                 <TeacherList classId={this.props.location.pathname} connectedTeachers={this.state.teachers_id}/>
                 <StudentList classId={this.props.location.pathname} connectedStudents={this.state.students_id}/>
+
             </div>
         );
     }

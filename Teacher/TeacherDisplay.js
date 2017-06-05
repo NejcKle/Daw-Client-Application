@@ -1,5 +1,5 @@
 const React = require('react')
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 export default (props) => {
     if (props.containsData) {
@@ -84,7 +84,7 @@ export default (props) => {
 
     else return (
         <div>
-            <span>No data available!</span>
+            <Link to='/'>Teacher does not exist!</Link>
         </div>
     )
 }
