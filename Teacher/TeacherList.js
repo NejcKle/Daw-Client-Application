@@ -9,7 +9,6 @@ export default class TeacherList extends React.Component {
         super(props);
 
         this.fetchData = this.fetchData.bind(this);
-
         this.state = {
             teachers: [],
             containsData: false,
