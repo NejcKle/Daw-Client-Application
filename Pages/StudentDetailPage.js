@@ -19,7 +19,13 @@ export default class StudentDetail extends React.Component {
     }
 
     componentWillMount() {
-        fetch('http://localhost:8080' + this.props.location.pathname)
+        var location;
+        if (this.props.location.pathname !== '') {
+            location = this.props.location.pathname;
+        }
+        else location = window.location.pathname;
+        //console.log(location);
+        fetch('http://localhost:8080' + location)
             .then(
             (response) => {
                 if (response.status === 404) {
@@ -55,7 +61,7 @@ export default class StudentDetail extends React.Component {
     }
 
     render() {
-        if (this.state.containsData) {
+        if (this.state.containsData && this.props.admin === true) {
             return (
                 <div>
                     <h1>Student Detail</h1>

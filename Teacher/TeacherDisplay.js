@@ -15,14 +15,14 @@ export default (props) => {
                                             <Link to={'/classes/' + klass}>{klass}</Link>
                                         </td>
                                     )))
-                                    : '/'}
+                                    : <td>'/'</td>}
                                 {(props.courses_id.length > 0)
                                     ? (props.courses_id.map(course => (
                                         <td key={course}>
                                             <Link to={'/courses/' + course}>{course}</Link>
                                         </td>
                                     )))
-                                    : '/'}
+                                    : <td>'/'</td>}
                             </tr>
                         </tbody>
                     </table>
@@ -34,7 +34,7 @@ export default (props) => {
         
         return (
         <div>
-            <Link to='/login' />
+            <h1> Invalid Username </h1>
         </div>
     )}
 }

@@ -1,6 +1,7 @@
 const React = require('react')
 import { Redirect } from "react-router-dom";
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
+
 import CourseListPage from '../Pages/CourseListPage'
 import TeacherDetailPage from '../Pages/TeacherDetailPage'
 
