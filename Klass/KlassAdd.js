@@ -25,9 +25,11 @@ export default (props) => {
     var myRequest = new Request('http://localhost:8080/classes/', myInit);
     var url = document.URL;
     var course_id = url.substring(url.lastIndexOf('/'));
-    console.log("Course ID: " + course_id);
+    //console.log('http://localhost:8080/courses' + course_id + '/' + props.k_id);
     var conRequest = new Request('http://localhost:8080/courses' + course_id + '/' + props.k_id, connect);
-    //var con2Request = new Request('http://localhost:8080/teachers/' + props.teacherId + '/classes/' + props.k_id, connect);
+    var con2Request = new Request('http://localhost:8080/semesters/' + props.sem_id +'/' + props.k_id, connect);
+    var con3Request = new Request('http://localhost:8080/teachers/' + 'ucitelj' + '/classes/' + props.k_id, connect);
+    var con4Request = new Request('http://localhost:8080/students/' + 'user1/' + props.k_id, connect);
 
     fetch(myRequest)
         .then(
@@ -42,7 +44,53 @@ export default (props) => {
         .catch(function (err) {
             console.log('Fetch Error :-S', err);
         })
+
     setTimeout(() => {fetch(conRequest)
+        .then(
+        function (response) {
+            if (response.ok) {
+                //console.log("Class added to this course.");
+                KlassActions.connectKlass();
+                CourseActions.addCourse();
+                return response.blob();
+            }
+            throw new Error('Network response was not ok.');
+        })
+        .catch(function (err) {
+            console.log('Fetch Error :-S', err);
+        })}, 100)
+
+        setTimeout(() => {fetch(con2Request)
+        .then(
+        function (response) {
+            if (response.ok) {
+                //console.log("Class added to this course.");
+                KlassActions.connectKlass();
+                CourseActions.addCourse();
+                return response.blob();
+            }
+            throw new Error('Network response was not ok.');
+        })
+        .catch(function (err) {
+            console.log('Fetch Error :-S', err);
+        })}, 100)
+
+        setTimeout(() => {fetch(con3Request)
+        .then(
+        function (response) {
+            if (response.ok) {
+                //console.log("Class added to this course.");
+                KlassActions.connectKlass();
+                CourseActions.addCourse();
+                return response.blob();
+            }
+            throw new Error('Network response was not ok.');
+        })
+        .catch(function (err) {
+            console.log('Fetch Error :-S', err);
+        })}, 100)
+
+        setTimeout(() => {fetch(con4Request)
         .then(
         function (response) {
             if (response.ok) {
