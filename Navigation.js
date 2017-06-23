@@ -111,7 +111,7 @@ export default class LoginPage extends React.Component {
                 </Navbar>
 
                 <Route path='/students/:studentId' render={() => (isLoggedIn) ? ((role === 'admin') ? (<Student location={{ pathname: '' }} admin={this.state.admin} />) : (<Student location={{ pathname: '' }}  />)) : <Redirect push to='/' />}> </Route>
-                <Route path='/teachers/:teacherId' render={() => (isLoggedIn) ? ((role === 'admin') ? ( <Teacher admin={this.state.admin} />) : (<Teacher />)) : <Redirect push to='/'/>}></Route>
+                <Route path='/teachers/:teacherId' render={() => (isLoggedIn) ? ((role === 'admin') ? ( <Teacher admin={this.state.admin}  location={{ pathname: '' }} />) : (<Teacher  location={{ pathname: '' }} />)) : <Redirect push to='/'/>}></Route>
                 <Route exact path='/' render={() => (isLoggedIn) ? ((role === 'student') ? <Student location={{ pathname: '/students/' + username }} /> : ((role === 'teacher') ? <Teacher location={{ pathname: '/teachers/' + username }} /> : ((role === 'admin') ? <Courses admin={this.state.admin}/> : <Redirect push to='/'/>))) : <Courses />}></Route>
                 <Route path='/courses/:courseId' render={() => (role ==='admin') ? (<Course admin={this.state.admin} loggedIn={isLoggedIn}/>) : (<Course loggedIn={isLoggedIn} />)}></Route>
                 <Route exact path='/courses' render={() => (isLoggedIn) ? ((role === 'admin') ? (<Courses admin={this.state.admin}  />) : (<Courses />)) : <Redirect push to='/' />}> </Route>
