@@ -14,7 +14,7 @@ export default (props) => {
                 <div>
                     <Table>
                         <tbody>
-                            <tr><td>Id</td><td>name</td><td>Students limit</td></tr>
+                            <tr><th>Id</th><th>name</th><th>Students limit</th></tr>
                             {props.notConnectedGroups.map(g => (
                                 <tr key={g.id}><td><Link to={'/groups/' + g.id}>{g.id}</Link></td><td>{g.name}</td><td>{g.students_limit}</td>
                                     <td><Button type="button" onClick={() => {
@@ -39,7 +39,7 @@ export default (props) => {
                 <div>
                     <Table>
                         <tbody>
-                            <tr><td>Id</td><td>name</td><td>Students limit</td></tr>
+                            <tr><th>Id</th><th>name</th><th>Students limit</th></tr>
                             {props.groups.map(g => (
                                 <tr key={g.id}><td><Link to={'/groups/' + g.id}>{g.id}</Link></td><td>{g.name}</td><td>{g.students_limit}</td>
                                     <td><Button type="button" onClick={() => RemoveGroup({ id: g.id })}>Remove</Button></td>

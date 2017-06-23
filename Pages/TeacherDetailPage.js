@@ -21,8 +21,12 @@ export default class TeacherDetail extends React.Component {
     }
 
     componentWillMount() {
-        //console.log(this.props.location.pathname);
-        fetch('http://localhost:8080' + window.location.pathname)
+                var location;
+        if (this.props.location.pathname !== '') {
+            location = this.props.location.pathname;
+        }
+        else location = window.location.pathname;
+        fetch('http://localhost:8080' + location)
             .then(
             (response) => {
                 if (response.status === 404) {
