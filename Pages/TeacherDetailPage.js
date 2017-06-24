@@ -21,7 +21,7 @@ export default class TeacherDetail extends React.Component {
     }
 
     componentWillMount() {
-                var location;
+        var location;
         if (this.props.location.pathname !== '') {
             location = this.props.location.pathname;
         }
@@ -77,7 +77,7 @@ export default class TeacherDetail extends React.Component {
             return (
                 <div>
                     <h1> Teacher Detail </h1>
-                    <TeacherDisplay name={this.state.name} id={this.state.id} number={this.state.number} email={this.state.email} admin={this.state.admin} klasses_id={this.state.klasses_id} courses_id={this.state.courses_id} containsData={this.state.containsData} admin={this.props.admin} />
+                    <TeacherDisplay name={this.state.name} id={this.state.id} number={this.state.number} email={this.state.email} admin={this.state.admin} klasses_id={this.state.klasses_id} courses_id={this.state.courses_id} containsData={this.state.containsData} />
                     <TeacherForm />
                     <br />
                     <Link to='/courses/'>All courses list</Link>

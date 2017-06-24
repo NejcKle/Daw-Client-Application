@@ -1,5 +1,5 @@
 const React = require('react')
-import {Button, Table, FormControl} from 'react-bootstrap'
+import {Button, FormControl} from 'react-bootstrap'
 
 import AddStudent from './StudentAdd'
 

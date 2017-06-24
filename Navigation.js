@@ -1,29 +1,22 @@
 const React = require('react')
 import { Redirect } from "react-router-dom";
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Button, FormControl, FormGroup } from 'react-bootstrap'
-import CourseListPage from './Pages/CourseListPage'
-import TeacherDetailPage from './Pages/TeacherDetailPage'
 
-import Layout from './Pages/Layout'
-import Students from './Pages/StudentListPage'
 import Student from './Pages/StudentDetailPage'
 import Courses from './Pages/CourseListPage'
 import Course from './Pages/CourseDetailPage'
-import Classes from './Pages/KlassListPage'
 
 import ClassesListed from './Pages/KlassListPageSorted'
 
 import Klass from './Pages/KlassDetailPage'
 import Groups from './Pages/GroupListPage'
 import Group from './Pages/GroupDetailPage'
-import Teachers from './Pages/TeacherListPage'
 import Teacher from './Pages/TeacherDetailPage'
-import Login from './Login/LoginPage'
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css'
 
 
-export default class LoginPage extends React.Component {
+class LoginPage extends React.Component {
     constructor(props) {
         super(props);
 
@@ -77,19 +70,19 @@ export default class LoginPage extends React.Component {
         const username = this.state.username;
         const isLoggedIn = this.state.loggedIn;
         const role = this.state.role;
-        console.log(isLoggedIn);
+        //console.log(isLoggedIn);
         return (
             <div>
                 <Navbar inverse collapseOnSelect>
                     <Navbar.Header>
                         <Navbar.Brand>
-                            <Link to="/">WAD Management application</Link>
+                            <Link to="/home">WAD Management application</Link>
                         </Navbar.Brand>
                         <Navbar.Toggle />
                     </Navbar.Header>
                     <Nav>
                         <NavItem> <Link to="/courses">Courses</Link></NavItem>
-                        </Nav>
+                    </Nav>
                     <Navbar.Collapse>
                         {(!isLoggedIn) ? (
                             <Navbar.Form pullRight>
@@ -110,16 +103,18 @@ export default class LoginPage extends React.Component {
                     </Navbar.Collapse>
                 </Navbar>
 
-                <Route path='/students/:studentId' render={() => (isLoggedIn) ? ((role === 'admin') ? (<Student location={{ pathname: '' }} admin={this.state.admin} />) : (<Student location={{ pathname: '' }}  />)) : <Redirect push to='/' />}> </Route>
-                <Route path='/teachers/:teacherId' render={() => (isLoggedIn) ? ((role === 'admin') ? ( <Teacher admin={this.state.admin}  location={{ pathname: '' }} />) : (<Teacher  location={{ pathname: '' }} />)) : <Redirect push to='/'/>}></Route>
-                <Route exact path='/' render={() => (isLoggedIn) ? ((role === 'student') ? <Student location={{ pathname: '/students/' + username }} /> : ((role === 'teacher') ? <Teacher location={{ pathname: '/teachers/' + username }} /> : ((role === 'admin') ? <Courses admin={this.state.admin}/> : <Redirect push to='/'/>))) : <Courses />}></Route>
-                <Route path='/courses/:courseId' render={() => (role ==='admin') ? (<Course admin={this.state.admin} loggedIn={isLoggedIn}/>) : (<Course loggedIn={isLoggedIn} />)}></Route>
-                <Route exact path='/courses' render={() => (isLoggedIn) ? ((role === 'admin') ? (<Courses admin={this.state.admin}  />) : (<Courses />)) : <Redirect push to='/' />}> </Route>
+                <Route path='/students/:studentId' render={() => (isLoggedIn) ? ((role === 'admin') ? (<Student location={{ pathname: '' }} admin={this.state.admin} />) : (<Student location={{ pathname: '' }} />)) : <Redirect push to='/home' />}> </Route>
+                <Route path='/teachers/:teacherId' render={() => (isLoggedIn) ? ((role === 'admin') ? (<Teacher admin={this.state.admin} location={{ pathname: '' }} />) : (<Teacher location={{ pathname: '' }} />)) : <Redirect push to='/home' />}></Route>
+                <Route exact path='/home' render={() => (isLoggedIn) ? ((role === 'student') ? <Student location={{ pathname: '/students/' + username }} /> : ((role === 'teacher') ? <Teacher location={{ pathname: '/teachers/' + username }} /> : ((role === 'admin') ? <Courses admin={this.state.admin} loggedIn={isLoggedIn} /> : <Redirect push to='/home' />))) : <Courses loggedIn={isLoggedIn} />}></Route>
+                <Route path='/courses/:courseId' render={() => (role === 'admin') ? (<Course admin={this.state.admin} loggedIn={isLoggedIn} />) : (<Course loggedIn={isLoggedIn} />)}></Route>
+                <Route exact path='/courses' render={() => (role === 'admin') ? (<Courses admin={this.state.admin} loggedIn={isLoggedIn} />) : (<Courses loggedIn={isLoggedIn} />)}> </Route>
                 <Route path='/classes/:classId' render={() => (isLoggedIn) ? ((role === 'admin') ? (<Klass admin={this.state.admin} />) : (<Klass />)) : <Redirect push to='/' />}> </Route>
-                <Route exact path='/classes' render={() => (isLoggedIn) ? <ClassesListed /> : <Redirect push to='/'/>}></Route>
+                <Route exact path='/classes' render={() => (isLoggedIn) ? <ClassesListed /> : <Redirect push to='/classes' />}></Route>
                 <Route exact path='/groups' component={Groups}></Route>
                 <Route path='/groups/:groupId' component={Group}></Route>
             </div>
         );
     }
 }
+
+export default LoginPage;
