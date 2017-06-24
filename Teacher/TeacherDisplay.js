@@ -31,12 +31,10 @@ export default (props) => {
                 </div>
             )
     }
-
     else {
-        
         return (
         <div>
-            <h1> Invalid Username </h1>
+            <h1> Invalid Username! Try again... </h1>
         </div>
     )}
 }

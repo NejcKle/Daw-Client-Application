@@ -7,15 +7,16 @@ const React = require('react')
 export default class StudentDetail extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             containsData: false,
             name: '',
             number: '',
             id: '',
             email: '',
-            klasses_id: []
+            klasses_id: [],
+            courseClassLinks: []
         }
+        this.fetchCourseClassConnection = this.fetchCourseClassConnection.bind(this);
     }
 
     componentWillMount() {
@@ -47,17 +48,53 @@ export default class StudentDetail extends React.Component {
                             var klassArray = [];
                             //console.log(obj.entities.length);
                             for (var i = 0; i < obj.entities.length; i++) {
-                                klassArray.push(obj.entities[i].links[0].href.split('/').pop());
+                                var className = obj.entities[i].links[0].href.split('/').pop();
+                                klassArray.push(className);
+                                setTimeout(() => {
+                                    this.fetchCourseClassConnection(className);
+                                }, 50);
                             }
                             this.setState({ klasses_id: klassArray });
                             //console.log(obj.entities[0].links[0].href.split('/').pop()); --> extracts id of class
                         });
                 }
             }
-            )
-            .catch(function (err) {
-                console.log('Fetch Error :-S', err);
-            })
+        )
+        .catch(function (err) {
+            console.log('Fetch Error :-S', err);
+        })
+    }
+
+     fetchCourseClassConnection(className) {
+       //console.log(className);
+        fetch('http://localhost:8080/classes/' + className)
+            .then(
+            (response) => {
+                if (response.status === 404) {
+                    window.alert("No teachers in database");
+                    //this.setState({ containsData: false });
+                }
+
+                else if (response.status === 200) {
+                    //this.setState({ containsData: true });
+                    response.text()
+                        .then((data) => {
+                            var obj = JSON.parse(data);
+                            var courseClassLinksArray = [];
+                            for (var i = 0; i < obj.entities.length; i++) {
+                                if (obj.entities[i].title === "course") {
+                                    //console.log(obj.entities[i].properties.name);
+                                    courseClassLinksArray.push('/courses/' + obj.entities[i].properties.name + '/' + className );
+                                }
+                            }
+                            setTimeout(() => {
+                                 this.setState({courseClassLinks: courseClassLinksArray});
+                            }, 5);
+                        }
+                    )
+                }
+            }
+        )             
     }
 
     render() {
@@ -65,10 +102,8 @@ export default class StudentDetail extends React.Component {
             return (
                 <div>
                     <h1>Student Detail</h1>
-                    <StudentDisplay name={this.state.name} id={this.state.id} number={this.state.number} email={this.state.email} klasses_id={this.state.klasses_id} containsData={this.state.containsData} />
+                    <StudentDisplay name={this.state.name} id={this.state.id} number={this.state.number} email={this.state.email} klasses_id={this.state.courseClassLinks} containsData={this.state.containsData} />
                     <StudentForm />
-                    <br/>
-                    <Link to='/courses/'>All courses list</Link>
                 </div>
             );
         }
@@ -76,9 +111,7 @@ export default class StudentDetail extends React.Component {
             return (
                 <div>
                     <h1>Student Detail</h1>
-                    <StudentDisplay name={this.state.name} id={this.state.id} number={this.state.number} email={this.state.email} klasses_id={this.state.klasses_id} containsData={this.state.containsData} />
-                    <br/>
-                    <Link to='/courses/'>All courses list</Link>
+                    <StudentDisplay name={this.state.name} id={this.state.id} number={this.state.number} email={this.state.email} klasses_id={this.state.courseClassLinks} containsData={this.state.containsData} />
                 </div>
             );
         }

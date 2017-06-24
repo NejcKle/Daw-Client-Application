@@ -10,7 +10,7 @@ export default (props) => {
                     <Table>
                         <tbody>
                             <tr><th>Id</th><th>Name</th><th>Students limit</th><th>Class</th><th colSpan={props.students_id.length}>Students</th></tr>
-                            <tr key={props.id}><td>{props.id}</td><td>{props.name}</td><td>{props.students_limit}</td><td><Link to={'/classes/' + props.klass_id}>{props.klass_id}</Link></td>
+                            <tr key={props.id}><td>{props.id}</td><td>{props.name}</td><td>{props.students_limit}</td><td><Link to={props.klass_id}>{props.klass_id.substring(props.klass_id.lastIndexOf('/')+1)}</Link></td>
                                 {props.students_id.map(student => (
                                     <td key={student}><Link to={'/students/' + student}>{student}</Link>
                                     </td>

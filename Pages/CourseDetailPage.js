@@ -64,10 +64,10 @@ export default class CourseDetail extends React.Component {
                         });
                 }
             }
-            )
-            .catch(function (err) {
-                console.log('Fetch Error :-S', err);
-            })
+        )
+        .catch(function (err) {
+            console.log('Fetch Error :-S', err);
+        })
     }
 
     render() {
@@ -93,7 +93,6 @@ export default class CourseDetail extends React.Component {
                 )
             }
         }
-
         else {
             return (
                 <div>

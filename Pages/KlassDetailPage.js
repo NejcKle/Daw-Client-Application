@@ -20,7 +20,6 @@ export default class KlassDetail extends React.Component {
             groups_id: [],
             teachers_id: []
         }
-
         this.fetchData = this.fetchData.bind(this);
     }
 
@@ -35,7 +34,7 @@ export default class KlassDetail extends React.Component {
     fetchData() {
         var url = window.location.pathname;
         var class_id = url.substring(url.lastIndexOf('/'));
-        console.log(class_id);
+        //console.log(class_id);
         fetch('http://localhost:8080/classes' + class_id)
             .then(
             (response) => {
@@ -69,24 +68,21 @@ export default class KlassDetail extends React.Component {
                                     semester = obj.entities[i].properties.name;
                                 }
                             }
-
                             setTimeout(() => {
-
-                            this.setState({ students_id: studentsArray });
-                            this.setState({ teachers_id: teachersArray });
-                            this.setState({ groups_id: groupsArray });
-                            this.setState({ semester_id: semester});
-
+                                this.setState({ students_id: studentsArray });
+                                this.setState({ teachers_id: teachersArray });
+                                this.setState({ groups_id: groupsArray });
+                                this.setState({ semester_id: semester});
                             }, 5)
-
                         });
                 }
             }
-            )
-            .catch(function (err) {
-                console.log('Fetch Error :-S', err);
-            })
+        )
+        .catch(function (err) {
+            console.log('Fetch Error :-S', err);
+        })
     }
+
     render() {
         if (this.state.containsData && this.props.admin === true) {
             return (
@@ -102,12 +98,10 @@ export default class KlassDetail extends React.Component {
         }
         else {
             return (
-
                 <div>
                     <h1> Class Detail </h1>
                     <KlassDisplay id={this.state.id} identifier={this.state.identifier} auto_enrolment={this.state.auto_enrolment} students_id={this.state.students_id} teachers_id={this.state.teachers_id} groups_id={this.state.groups_id} semester_id={this.state.semester_id} containsData={this.state.containsData} />
                 </div>
-
             );
         }
     }

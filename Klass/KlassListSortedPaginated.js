@@ -22,24 +22,24 @@ export default class KlassList extends React.Component {
             pageSize: 5,
             prevDisabled: true,
             nextDisabled: true,
-
+            courseClassLinks: []
         }
+        this.fetchCourseClassConnection = this.fetchCourseClassConnection.bind(this);
     }
 
     incrementButton() {
         this.setState({ currentPage: this.state.currentPage + 1 });
         setTimeout(() => {
             this.fetchData();
-                            console.log(this.state.currentPage);
+            //console.log(this.state.currentPage);
         }, 1)
-
     }
 
     decrementButton() {
         this.setState({ currentPage: this.state.currentPage - 1 });
         setTimeout(() => {
             this.fetchData();
-                    console.log(this.state.currentPage);
+            //console.log(this.state.currentPage);
         }, 1)
     }
 
@@ -57,9 +57,9 @@ export default class KlassList extends React.Component {
                         .then((data) => {
                             var obj = JSON.parse(data);
                             var numOfKlasses = obj.entities.length;
-                            console.log(numOfKlasses);
+                            //console.log(numOfKlasses);
                             if (numOfKlasses > this.state.pageSize) {
-                                console.log("changing state of prev button");
+                                //console.log("changing state of prev button");
                                 this.setState({ nextDisabled: false });
                             }
                         });
@@ -97,20 +97,17 @@ export default class KlassList extends React.Component {
                         });
                 }
             }
-            )
-            .catch(function (err) {
-                console.log('Fetch Error :-S', err);
-            })
+        )
+        .catch(function (err) {
+            console.log('Fetch Error :-S', err);
+        })
     }
 
     fetchData() {
-
-        
         if(this.state.currentPage === 0) {
             this.setState({prevDisabled: true});
-            console.log("fetch data function" + this.state.currentPage);
+            //console.log("fetch data function" + this.state.currentPage);
         }
-
         else {
             this.setState({prevDisabled: false});
         }
@@ -121,7 +118,6 @@ export default class KlassList extends React.Component {
                 if (response.status === 404) {
                     //this.setState({ containsData: false });
                 }
-
                 else if (response.status === 200) {
                     console.log("fetching:" + 'http://localhost:8080/classes/listed/' + this.state.currentPage + '/' + this.state.pageSize + '/descending');
                     //this.setState({ containsData: true });
@@ -131,13 +127,17 @@ export default class KlassList extends React.Component {
                             var numOfKlasses = obj.entities.length;
                             var klassesArray = [];
                             for (var i = 0; i < numOfKlasses; i++) {
-                                let KlassTemp = new Klass(obj.entities[i].properties.identifier, obj.entities[i].properties.enrolment_auto, obj.entities[i].properties.id);
+                                var KlassTemp = new Klass(obj.entities[i].properties.identifier, obj.entities[i].properties.enrolment_auto, obj.entities[i].properties.id);
                                 klassesArray.push(KlassTemp);
+                                 setTimeout(() => {
+                                        this.fetchCourseClassConnection(KlassTemp);
+                                        //console.log(courseClassLinksArray);
+                                    }, 50); 
                             }
                             this.setState({ klasses: klassesArray });
                             //KlassActions.addKlass();
                             //ne dela ke na serveru ni povezan semester s coursom!!!!!!!!!!!!!!!!!!
-                            console.log(numOfKlasses);
+                            //console.log(numOfKlasses);
                         });
                         this.fetchNext();
                 }
@@ -157,10 +157,40 @@ export default class KlassList extends React.Component {
         this.getNumberOfStudents();
     }
 
+    fetchCourseClassConnection(className) {
+        fetch('http://localhost:8080/classes/' + className.id)
+            .then(
+            (response) => {
+                if (response.status === 404) {
+                    //window.alert("Class not in database");
+                    //this.setState({ containsData: false });
+                }
+                else if (response.status === 200) {
+                    //this.setState({ containsData: true });
+                    response.text()
+                        .then((data) => {
+                            var obj = JSON.parse(data);
+                            var courseClassLinksArray = [];
+                            for (var i = 0; i < obj.entities.length; i++) {
+                                if (obj.entities[i].title === "course") {
+                                    //console.log("PRVI ALO " + obj.entities[i].properties.name);
+                                    courseClassLinksArray.push('/courses/' + obj.entities[i].properties.name + '/' + className.id);
+                                }
+                            }
+                            setTimeout(() => {
+                                 this.setState({courseClassLinks: courseClassLinksArray});
+                            }, 5);
+                        }
+                    )
+                }
+            }
+        )             
+    }
+
     render() {
         return (
             <div>
-                <DisplayKlasses klasses={this.state.klasses} containsData={this.state.containsData} />
+                <DisplayKlasses klasses={this.state.klasses} klasses_links={this.state.courseClassLinks}  containsData={this.state.containsData} />
                 <Button onClick={this.decrementButton} disabled={this.state.prevDisabled}>Prev</Button>
                 <Button onClick={this.incrementButton} disabled={this.state.nextDisabled}>Next</Button>
             </div>

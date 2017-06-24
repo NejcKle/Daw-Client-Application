@@ -7,7 +7,6 @@ const React = require('react')
 export default class TeacherDetail extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             containsData: false,
             name: '',
@@ -19,12 +18,8 @@ export default class TeacherDetail extends React.Component {
             klasses_id: [],
             courseClassLinks: []
         }
-        
         this.fetchCourseClassConnection = this.fetchCourseClassConnection.bind(this);
-
     }
-
-    
 
     componentWillMount() {
         var location;
@@ -37,10 +32,9 @@ export default class TeacherDetail extends React.Component {
             .then(
             (response) => {
                 if (response.status === 404) {
-                    //window.alert("No students in database");
+                    window.alert("No teachers in database");
                     this.setState({ containsData: false });
                 }
-
                 else if (response.status === 200) {
                     this.setState({ containsData: true });
                     response.text()
@@ -53,64 +47,54 @@ export default class TeacherDetail extends React.Component {
                             this.setState({ number: obj.properties.number });
                             this.setState({ email: obj.properties.email });
                             this.setState({ admin: obj.properties.admin });
-
                             var klassArray = [];
-
                             var courseArray = [];
-                            var courseClassLinksArray = [];
                             //console.log(obj.entities.length);
                             for (var i = 0; i < obj.entities.length; i++) {
-                                
                                 //console.log(obj.entities[i].title);
                                 if (obj.entities[i].title === "class") {
                                     var className = obj.entities[i].links[0].href.split('/').pop();
                                     klassArray.push(className);
                                     //console.log(className);
                                     setTimeout(() => {
-                                    this.fetchCourseClassConnection(className);
-                                    console.log(courseClassLinksArray);
-                                    }, 50);
-                                    
+                                        this.fetchCourseClassConnection(className);
+                                        //console.log(courseClassLinksArray);
+                                    }, 50);  
                                 }
-
                                 if (obj.entities[i].title === "course") {
                                     courseArray.push(obj.entities[i].links[0].href.split('/').pop());
                                 }
                             }
-
                             this.setState({ klasses_id: klassArray });
                             this.setState({ courses_id: courseArray });
                             /*-setTimeout(() => {
-
-                            this.setState({ courseClassLinks: courseClassLinksArray });
-
-                        }, 50)*/
-                        });
+                                this.setState({ courseClassLinks: courseClassLinksArray });
+                            }, 50)*/
+                        }
+                    );
                 }
             }
-            )
-            .catch(function (err) {
-                console.log('Fetch Error :-S', err);
-            })
+        )
+        .catch(function (err) {
+            console.log('Fetch Error :-S', err);
+        })
     }
 
     fetchCourseClassConnection(className) {
-       console.log(className);
-
+       //console.log(className);
         fetch('http://localhost:8080/classes/' + className)
             .then(
             (response) => {
                 if (response.status === 404) {
-                    //window.alert("No students in database");
+                    //window.alert("Class not in database");
                     //this.setState({ containsData: false });
                 }
-
                 else if (response.status === 200) {
                     //this.setState({ containsData: true });
                     response.text()
                         .then((data) => {
                             var obj = JSON.parse(data);
-                             var courseClassLinksArray = [];
+                            var courseClassLinksArray = [];
                             for (var i = 0; i < obj.entities.length; i++) {
                                 if (obj.entities[i].title === "course") {
                                     //console.log(obj.entities[i].properties.name);
@@ -118,19 +102,14 @@ export default class TeacherDetail extends React.Component {
                                 }
                             }
                             setTimeout(() => {
-            this.setState({courseClassLinks: courseClassLinksArray});
-        }, 5);
-
-                    }
-                        )}
-            })
-
-            
-            
+                                 this.setState({courseClassLinks: courseClassLinksArray});
+                            }, 5);
+                        }
+                    )
+                }
+            }
+        )             
     }
-
-    
-    
 
     render() {
         if (this.props.admin === true) {
@@ -139,8 +118,6 @@ export default class TeacherDetail extends React.Component {
                     <h1> Teacher Detail </h1>
                     <TeacherDisplay name={this.state.name} id={this.state.id} number={this.state.number} email={this.state.email} admin={this.state.admin} klasses_id={this.state.courseClassLinks} courses_id={this.state.courses_id} containsData={this.state.containsData} admin={this.props.admin} />
                     <TeacherForm />
-                    <br />
-                    <Link to='/courses/'>All courses list</Link>
                 </div>
             )
         }
@@ -149,8 +126,6 @@ export default class TeacherDetail extends React.Component {
             return (
                 <div>
                     <TeacherDisplay name={this.state.name} id={this.state.id} number={this.state.number} email={this.state.email} admin={this.state.admin} klasses_id={this.state.courseClassLinks} courses_id={this.state.courses_id} containsData={this.state.containsData} />
-                    <br />
-                    <Link to='/courses/'>All courses list</Link>
                 </div>
             );
         }

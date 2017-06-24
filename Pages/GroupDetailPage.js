@@ -11,8 +11,10 @@ export default class GroupDetail extends React.Component {
             name: '',
             students_limit: '',
             klass_id: '',
-            students_id: []
+            students_id: [],
+            courseClassLink: ''
         }
+        this.fetchCourseClassConnection = this.fetchCourseClassConnection.bind(this);
     }
 
     componentWillMount() {
@@ -39,6 +41,10 @@ export default class GroupDetail extends React.Component {
                                 }
                                 if (obj.entities[i].title === "class") {
                                     klass = obj.entities[i].links[0].href.split('/').pop();
+                                    setTimeout(() => {
+                                        this.fetchCourseClassConnection(klass);
+                                        //console.log(courseClassLink);
+                                    }, 50);  
                                 }
                             }
                             this.setState({ students_id: studentsArray });
@@ -51,11 +57,42 @@ export default class GroupDetail extends React.Component {
                 console.log('Fetch Error :-S', err);
             })
     }
+
+    fetchCourseClassConnection(className) {
+       //console.log(className);
+        fetch('http://localhost:8080/classes/' + className)
+            .then(
+            (response) => {
+                if (response.status === 404) {
+                    //window.alert("Class not in database");
+                    //this.setState({ containsData: false });
+                }
+                else if (response.status === 200) {
+                    //this.setState({ containsData: true });
+                    response.text()
+                        .then((data) => {
+                            var obj = JSON.parse(data);
+                            var courseClass;
+                            for (var i = 0; i < obj.entities.length; i++) {
+                                if (obj.entities[i].title === "course") {
+                                    //console.log(obj.entities[i].properties.name);
+                                    courseClass = '/courses/' + obj.entities[i].properties.name + '/' + className;
+                                }
+                            }
+                            setTimeout(() => {
+                                 this.setState({courseClassLink: courseClass});
+                            }, 5);
+                        }
+                    )
+                }
+            }
+        ) 
+    } 
     render() {
         return (
             <div>
                 <h1> Group Detail </h1>
-                <GroupDisplay id={this.state.id} name={this.state.name} students_limit={this.state.students_limit} klass_id={this.state.klass_id} students_id={this.state.students_id} containsData={this.state.containsData} />
+                <GroupDisplay id={this.state.id} name={this.state.name} students_limit={this.state.students_limit} klass_id={this.state.courseClassLink} students_id={this.state.students_id} containsData={this.state.containsData} />
             </div>
         );
     }

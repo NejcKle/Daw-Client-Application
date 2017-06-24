@@ -107,7 +107,6 @@ export default class LoginPage extends React.Component {
                             )}
                     </Navbar.Collapse>
                 </Navbar>
-
                 <Route path='/students/:studentId' render={() => (isLoggedIn) ? ((role === 'admin') ? (<Student location={{ pathname: '' }} admin={this.state.admin} />) : (<Student location={{ pathname: '' }}  />)) : <Redirect push to='/' />}> </Route>
                 <Route path='/teachers/:teacherId' render={() => (isLoggedIn) ? ((role === 'admin') ? ( <Teacher admin={this.state.admin}  location={{ pathname: '' }} />) : (<Teacher  location={{ pathname: '' }} />)) : <Redirect push to='/'/>}></Route>
                 <Route exact path='/' render={() => (isLoggedIn) ? ((role === 'student') ? <Student location={{ pathname: '/students/' + username }} /> : ((role === 'teacher') ? <Teacher location={{ pathname: '/teachers/' + username }} /> : ((role === 'admin') ? <Courses admin={this.state.admin}/> : <Redirect push to='/'/>))) : <Courses />}></Route>
