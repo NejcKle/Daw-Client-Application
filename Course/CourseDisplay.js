@@ -15,8 +15,7 @@ export default (props) => {
                                 <td><Link to={'/teachers/' + props.teacher_id}>{props.teacher_id}</Link></td>
                              : <td>/</td>}
                             {(props.classes_id.length > 0) ? (props.classes_id.map(klass => (
-                                <td key={klass}><Link to={'/classes/' + klass}>{klass}</Link>
-                                </td>
+                                <td key={klass}><Link to={'/courses/' + props.id + '/' + klass}>{klass}</Link></td>
                             ))) : <td>/</td>}
                         </tr>
 

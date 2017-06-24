@@ -10,7 +10,7 @@ export default (props) => {
     if (props.containsData) {
         //console.log(document.URL);
         var url = document.URL;
-        if (url.includes('/classes/')) {
+        if (url.includes('/courses/')) {
             return (
                 <div>
                     <Table>

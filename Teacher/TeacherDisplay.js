@@ -4,6 +4,7 @@ import {Button, Table} from 'react-bootstrap'
 
 export default (props) => {
     if (props.containsData) {
+        //console.log(props.klasses_id);
             return (
                 <div>
                     <Table>
@@ -13,7 +14,7 @@ export default (props) => {
                                 {(props.klasses_id.length > 0)
                                     ? (props.klasses_id.map(klass => (
                                         <td key={klass}>
-                                            <Link to={'/classes/' + klass}>{klass}</Link>
+                                            <Link to={klass}>{klass.split('/').pop()}</Link>
                                         </td>
                                     )))
                                     : <td>'/'</td>}

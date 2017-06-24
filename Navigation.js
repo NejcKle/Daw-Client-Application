@@ -11,9 +11,7 @@ import Student from './Pages/StudentDetailPage'
 import Courses from './Pages/CourseListPage'
 import Course from './Pages/CourseDetailPage'
 import Classes from './Pages/KlassListPage'
-
 import ClassesListed from './Pages/KlassListPageSorted'
-
 import Klass from './Pages/KlassDetailPage'
 import Groups from './Pages/GroupListPage'
 import Group from './Pages/GroupDetailPage'
@@ -113,9 +111,9 @@ export default class LoginPage extends React.Component {
                 <Route path='/students/:studentId' render={() => (isLoggedIn) ? ((role === 'admin') ? (<Student location={{ pathname: '' }} admin={this.state.admin} />) : (<Student location={{ pathname: '' }}  />)) : <Redirect push to='/' />}> </Route>
                 <Route path='/teachers/:teacherId' render={() => (isLoggedIn) ? ((role === 'admin') ? ( <Teacher admin={this.state.admin}  location={{ pathname: '' }} />) : (<Teacher  location={{ pathname: '' }} />)) : <Redirect push to='/'/>}></Route>
                 <Route exact path='/' render={() => (isLoggedIn) ? ((role === 'student') ? <Student location={{ pathname: '/students/' + username }} /> : ((role === 'teacher') ? <Teacher location={{ pathname: '/teachers/' + username }} /> : ((role === 'admin') ? <Courses admin={this.state.admin}/> : <Redirect push to='/'/>))) : <Courses />}></Route>
-                <Route path='/courses/:courseId' render={() => (role ==='admin') ? (<Course admin={this.state.admin} loggedIn={isLoggedIn}/>) : (<Course loggedIn={isLoggedIn} />)}></Route>
+                <Route exact path='/courses/:courseId' render={() => (role ==='admin') ? (<Course admin={this.state.admin} loggedIn={isLoggedIn}/>) : (<Course loggedIn={isLoggedIn} />)}></Route>
                 <Route exact path='/courses' render={() => (isLoggedIn) ? ((role === 'admin') ? (<Courses admin={this.state.admin}  />) : (<Courses />)) : <Redirect push to='/' />}> </Route>
-                <Route path='/classes/:classId' render={() => (isLoggedIn) ? ((role === 'admin') ? (<Klass admin={this.state.admin} />) : (<Klass />)) : <Redirect push to='/' />}> </Route>
+                <Route path='/courses/:courseId/:classId' render={() => (isLoggedIn) ? ((role === 'admin') ? (<Klass admin={this.state.admin} />) : (<Klass />)) : <Redirect push to='/' />}> </Route>
                 <Route exact path='/classes' render={() => (isLoggedIn) ? <ClassesListed /> : <Redirect push to='/'/>}></Route>
                 <Route exact path='/groups' component={Groups}></Route>
                 <Route path='/groups/:groupId' component={Group}></Route>

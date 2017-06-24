@@ -18,6 +18,7 @@ export default class TeacherList extends React.Component {
     }
 
     fetchData() {
+        console.log("fetching teachers");
         fetch('http://localhost:8080/teachers/')
             .then(
             (response) => {
@@ -32,6 +33,7 @@ export default class TeacherList extends React.Component {
                     response.text()
                         .then((data) => {
                             var obj = JSON.parse(data);
+
                             var numOfTeachers = obj.entities.length;
                             var teacherArray = [];
                             for (var i = 0; i < numOfTeachers; i++) {

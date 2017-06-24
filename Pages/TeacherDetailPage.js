@@ -16,16 +16,23 @@ export default class TeacherDetail extends React.Component {
             id: '',
             admin: '',
             courses_id: [],
-            klasses_id: []
+            klasses_id: [],
+            courseClassLinks: []
         }
+        
+        this.fetchCourseClassConnection = this.fetchCourseClassConnection.bind(this);
+
     }
 
+    
+
     componentWillMount() {
-                var location;
+        var location;
         if (this.props.location.pathname !== '') {
             location = this.props.location.pathname;
         }
         else location = window.location.pathname;
+
         fetch('http://localhost:8080' + location)
             .then(
             (response) => {
@@ -48,12 +55,22 @@ export default class TeacherDetail extends React.Component {
                             this.setState({ admin: obj.properties.admin });
 
                             var klassArray = [];
+
                             var courseArray = [];
+                            var courseClassLinksArray = [];
                             //console.log(obj.entities.length);
                             for (var i = 0; i < obj.entities.length; i++) {
+                                
                                 //console.log(obj.entities[i].title);
                                 if (obj.entities[i].title === "class") {
-                                    klassArray.push(obj.entities[i].links[0].href.split('/').pop());
+                                    var className = obj.entities[i].links[0].href.split('/').pop();
+                                    klassArray.push(className);
+                                    //console.log(className);
+                                    setTimeout(() => {
+                                    this.fetchCourseClassConnection(className);
+                                    console.log(courseClassLinksArray);
+                                    }, 50);
+                                    
                                 }
 
                                 if (obj.entities[i].title === "course") {
@@ -63,6 +80,11 @@ export default class TeacherDetail extends React.Component {
 
                             this.setState({ klasses_id: klassArray });
                             this.setState({ courses_id: courseArray });
+                            /*-setTimeout(() => {
+
+                            this.setState({ courseClassLinks: courseClassLinksArray });
+
+                        }, 50)*/
                         });
                 }
             }
@@ -72,12 +94,50 @@ export default class TeacherDetail extends React.Component {
             })
     }
 
+    fetchCourseClassConnection(className) {
+       console.log(className);
+
+        fetch('http://localhost:8080/classes/' + className)
+            .then(
+            (response) => {
+                if (response.status === 404) {
+                    //window.alert("No students in database");
+                    //this.setState({ containsData: false });
+                }
+
+                else if (response.status === 200) {
+                    //this.setState({ containsData: true });
+                    response.text()
+                        .then((data) => {
+                            var obj = JSON.parse(data);
+                             var courseClassLinksArray = [];
+                            for (var i = 0; i < obj.entities.length; i++) {
+                                if (obj.entities[i].title === "course") {
+                                    //console.log(obj.entities[i].properties.name);
+                                    courseClassLinksArray.push('/courses/' + obj.entities[i].properties.name + '/' + className );
+                                }
+                            }
+                            setTimeout(() => {
+            this.setState({courseClassLinks: courseClassLinksArray});
+        }, 5);
+
+                    }
+                        )}
+            })
+
+            
+            
+    }
+
+    
+    
+
     render() {
         if (this.props.admin === true) {
             return (
                 <div>
                     <h1> Teacher Detail </h1>
-                    <TeacherDisplay name={this.state.name} id={this.state.id} number={this.state.number} email={this.state.email} admin={this.state.admin} klasses_id={this.state.klasses_id} courses_id={this.state.courses_id} containsData={this.state.containsData} admin={this.props.admin} />
+                    <TeacherDisplay name={this.state.name} id={this.state.id} number={this.state.number} email={this.state.email} admin={this.state.admin} klasses_id={this.state.courseClassLinks} courses_id={this.state.courses_id} containsData={this.state.containsData} admin={this.props.admin} />
                     <TeacherForm />
                     <br />
                     <Link to='/courses/'>All courses list</Link>
@@ -88,7 +148,7 @@ export default class TeacherDetail extends React.Component {
         else {
             return (
                 <div>
-                    <TeacherDisplay name={this.state.name} id={this.state.id} number={this.state.number} email={this.state.email} admin={this.state.admin} klasses_id={this.state.klasses_id} courses_id={this.state.courses_id} containsData={this.state.containsData} />
+                    <TeacherDisplay name={this.state.name} id={this.state.id} number={this.state.number} email={this.state.email} admin={this.state.admin} klasses_id={this.state.courseClassLinks} courses_id={this.state.courses_id} containsData={this.state.containsData} />
                     <br />
                     <Link to='/courses/'>All courses list</Link>
                 </div>
@@ -96,4 +156,3 @@ export default class TeacherDetail extends React.Component {
         }
     }
 }
-

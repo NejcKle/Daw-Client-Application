@@ -29,7 +29,7 @@ export default class CourseDetail extends React.Component {
     }
 
     fetchData() {
-        console.log(window.location.pathname);
+        //console.log(window.location.pathname);
         fetch('http://localhost:8080' + window.location.pathname)
             .then(
             (response) => {

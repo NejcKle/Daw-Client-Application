@@ -33,8 +33,10 @@ export default class KlassDetail extends React.Component {
     }
 
     fetchData() {
-        console.log(window.location.pathname);
-        fetch('http://localhost:8080' + window.location.pathname)
+        var url = window.location.pathname;
+        var class_id = url.substring(url.lastIndexOf('/'));
+        console.log(class_id);
+        fetch('http://localhost:8080/classes' + class_id)
             .then(
             (response) => {
                 if (response.status === 404) {
@@ -90,7 +92,6 @@ export default class KlassDetail extends React.Component {
             return (
                 <div>
                     <h1> Class Detail </h1>
-
                     <KlassDisplay id={this.state.id} identifier={this.state.identifier} auto_enrolment={this.state.auto_enrolment} students_id={this.state.students_id} teachers_id={this.state.teachers_id} groups_id={this.state.groups_id} semester_id={this.state.semester_id} containsData={this.state.containsData} />
                     <TeacherList classId={window.location.pathname} connectedTeachers={this.state.teachers_id} />
                     <StudentList classId={window.location.pathname} connectedStudents={this.state.students_id} />
