@@ -1,6 +1,6 @@
 const React = require('react')
 import { Link } from 'react-router-dom'
-import {Button, Table} from 'react-bootstrap'
+import { Table } from 'react-bootstrap'
 
 import GroupConnectStudent from './GroupConnectStudent'
 import GroupDisconnectStudent from './GroupDisconnectStudent'

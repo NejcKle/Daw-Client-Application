@@ -1,6 +1,6 @@
 const React = require('react')
-import { Link, Redirect } from 'react-router-dom'
-import {Button, Table} from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import { Table } from 'react-bootstrap'
 
 export default (props) => {
     if (props.containsData) {

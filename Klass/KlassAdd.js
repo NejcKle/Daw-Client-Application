@@ -28,7 +28,7 @@ export default (props) => {
     //console.log('http://localhost:8080/courses' + course_id + '/' + props.k_id);
     var conRequest = new Request('http://localhost:8080/courses' + course_id + '/' + props.k_id, connect);
     var con2Request = new Request('http://localhost:8080/semesters/' + props.sem_id +'/' + props.k_id, connect);
-    var con3Request = new Request('http://localhost:8080/teachers/' + 'ucitelj' + '/classes/' + props.k_id, connect);
+    var con3Request = new Request('http://localhost:8080/teachers/ucitelj/classes/' + props.k_id, connect);
     //var con4Request = new Request('http://localhost:8080/students/' + 'user1/' + props.k_id, connect);
 
     fetch(myRequest)

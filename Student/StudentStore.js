@@ -3,10 +3,6 @@ import { EventEmitter } from 'events'
 import Dispatcher from '../Dispatcher'
 
 class StudentStore extends EventEmitter {
-    constructor() {
-        super()
-    }
-
     removeStudent() {
         this.emit("change");
     }

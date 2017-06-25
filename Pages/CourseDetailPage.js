@@ -58,8 +58,10 @@ export default class CourseDetail extends React.Component {
                                 }
                             }
                             //console.log(klassArray);
+                            setTimeout(() => {
                             this.setState({ teacher_id: teacher });
                             this.setState({ classes_id: klassArray });
+                            }, 5);
                             //console.log(obj.entities[0].links[0].href.split('/').pop()); --> extracts id of class
                         });
                 }
@@ -76,7 +78,7 @@ export default class CourseDetail extends React.Component {
                 return (
                     <div>
                         <h1> Course Detail </h1>
-                        <CourseDisplay name={this.state.name} id={this.state.id} acronim={this.state.acronim} containsData={this.state.containsData} teacher_id={this.state.teacher_id} classes_id={this.state.classes_id} />
+                        <CourseDisplay name={this.state.name} id={this.state.id} acronim={this.state.acronim} containsData={this.state.containsData} teacher_id={this.state.teacher_id} classes_id={this.state.classes_id} loggedIn={this.props.loggedIn} />
                         <p>Create new class to this course:</p>
                         <KlassForm />
                         <Link to='/classes'>All classes list</Link>
@@ -87,7 +89,7 @@ export default class CourseDetail extends React.Component {
                 return (
                     <div>
                         <h1> Course Detail </h1>
-                        <CourseDisplay name={this.state.name} id={this.state.id} acronim={this.state.acronim} containsData={this.state.containsData} teacher_id={this.state.teacher_id} classes_id={this.state.classes_id} />
+                        <CourseDisplay name={this.state.name} id={this.state.id} acronim={this.state.acronim} containsData={this.state.containsData} teacher_id={this.state.teacher_id} classes_id={this.state.classes_id} loggedIn={this.props.loggedIn} />
                         <Link to='/classes'>All classes list</Link>
                     </div>
                 )
@@ -97,7 +99,7 @@ export default class CourseDetail extends React.Component {
             return (
                 <div>
                     <h1> Course Detail </h1>
-                    <CourseDisplay name={this.state.name} id={this.state.id} acronim={this.state.acronim} containsData={this.state.containsData} teacher_id={this.state.teacher_id} classes_id={this.state.classes_id} />
+                    <CourseDisplay name={this.state.name} id={this.state.id} acronim={this.state.acronim} containsData={this.state.containsData} teacher_id={this.state.teacher_id} classes_id={this.state.classes_id} loggedIn={this.props.loggedIn} />
                 </div>
             )
         }

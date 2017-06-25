@@ -56,7 +56,7 @@ export default class CourseList extends React.Component {
     render() {
         return (
             <div>
-                <DisplayCourses courses={this.state.courses} containsData={this.state.containsData} admin={this.props.admin} />
+                <DisplayCourses courses={this.state.courses} containsData={this.state.containsData} admin={this.props.admin} loggedIn={this.props.loggedIn} />
             </div>
         )
     }

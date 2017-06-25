@@ -3,8 +3,7 @@ const fetch = require('isomorphic-fetch')
 import Klass from './Klass'
 import DisplayKlasses from './KlassesDisplay'
 import KlassStore from './KlassStore'
-import * as KlassActions from '../Actions/KlassActions'
-import {Button, Table} from 'react-bootstrap'
+import {Button} from 'react-bootstrap'
 
 var courseClassLinksArray = [];
 
@@ -32,7 +31,6 @@ export default class KlassList extends React.Component {
         this.setState({ currentPage: this.state.currentPage + 1 });
         setTimeout(() => {
             this.fetchData();
-            //console.log(this.state.currentPage);
         }, 1)
     }
 
@@ -40,7 +38,6 @@ export default class KlassList extends React.Component {
         this.setState({ currentPage: this.state.currentPage - 1 });
         setTimeout(() => {
             this.fetchData();
-            //console.log(this.state.currentPage);
         }, 1)
     }
 
@@ -82,7 +79,7 @@ export default class KlassList extends React.Component {
                 }
 
                 else if (response.status === 200) {
-                    console.log("fetching:" + 'http://localhost:8080/classes/listed/' + next + '/' + this.state.pageSize + '/descending');
+                    //console.log("fetching:" + 'http://localhost:8080/classes/listed/' + next + '/' + this.state.pageSize + '/descending');
                     //this.setState({ containsData: true });
                     response.text()
                         .then((data) => {
@@ -120,7 +117,7 @@ export default class KlassList extends React.Component {
                     //this.setState({ containsData: false });
                 }
                 else if (response.status === 200) {
-                    console.log("fetching:" + 'http://localhost:8080/classes/listed/' + this.state.currentPage + '/' + this.state.pageSize + '/descending');
+                    //console.log("fetching:" + 'http://localhost:8080/classes/listed/' + this.state.currentPage + '/' + this.state.pageSize + '/descending');
                     //this.setState({ containsData: true });
                     response.text()
                         .then((data) => {
@@ -135,9 +132,6 @@ export default class KlassList extends React.Component {
                                 //console.log(courseClassLinksArray);
                             }
                             this.setState({ klasses: klassesArray });
-                            //KlassActions.addKlass();
-                            //ne dela ke na serveru ni povezan semester s coursom!!!!!!!!!!!!!!!!!!
-                            //console.log(numOfKlasses);
                         });
                         this.fetchNext();
                     }
