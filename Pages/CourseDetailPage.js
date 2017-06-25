@@ -81,7 +81,6 @@ export default class CourseDetail extends React.Component {
                         <CourseDisplay name={this.state.name} id={this.state.id} acronim={this.state.acronim} containsData={this.state.containsData} teacher_id={this.state.teacher_id} classes_id={this.state.classes_id} loggedIn={this.props.loggedIn} />
                         <p>Create new class to this course:</p>
                         <KlassForm />
-                        <Link to='/classes'>All classes list</Link>
                     </div>
                 );
             }
@@ -90,7 +89,6 @@ export default class CourseDetail extends React.Component {
                     <div>
                         <h1> Course Detail </h1>
                         <CourseDisplay name={this.state.name} id={this.state.id} acronim={this.state.acronim} containsData={this.state.containsData} teacher_id={this.state.teacher_id} classes_id={this.state.classes_id} loggedIn={this.props.loggedIn} />
-                        <Link to='/classes'>All classes list</Link>
                     </div>
                 )
             }
