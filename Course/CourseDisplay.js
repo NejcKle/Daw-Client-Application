@@ -16,7 +16,7 @@ export default (props) => {
                                     <td><Link to={'/teachers/' + props.teacher_id}>{props.teacher_id}</Link></td>
                                     : <td>/</td>}
                                 {(props.classes_id.length > 0) ? (props.classes_id.map(klass => (
-                                    <td key={klass}><Link to={'/classes/' + klass}>{klass}</Link>
+                                    <td key={klass}><Link to={'/courses/' + props.id + '/' + klass}>{klass}</Link>
                                     </td>
                                 ))) : <td>/</td>}
                             </tr>
@@ -35,7 +35,7 @@ export default (props) => {
                             <tr><th>Id</th><th>Name</th><th>Acronim</th><th>Responsible teacher</th></tr>
                             <tr key={props.id}><td>{props.id}</td><td>{props.name}</td><td>{props.acronim}</td>
                                 {(props.teacher_id.length > 0) ?
-                                    <td><Link to={'/teachers/' + props.teacher_id}>{props.teacher_id}</Link></td>
+                                    <td>{props.teacher_id}</td>
                                     : <td>/</td>}
 
                             </tr>

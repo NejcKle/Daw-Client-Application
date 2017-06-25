@@ -48,14 +48,13 @@ export default class TeacherDetail extends React.Component {
                             this.setState({ number: obj.properties.number });
                             this.setState({ email: obj.properties.email });
                             this.setState({ admin: obj.properties.admin });
-                            var klassArray = [];
                             var courseArray = [];
+                            courseClassLinksArray = [];
                             //console.log(obj.entities.length);
                             for (var i = 0; i < obj.entities.length; i++) {
                                 //console.log(obj.entities[i].title);
                                 if (obj.entities[i].title === "class") {
                                     var className = obj.entities[i].links[0].href.split('/').pop();
-                                    klassArray.push(className);
                                     //console.log(className);
                                     this.fetchCourseClassConnection(className);
                                     //console.log(courseClassLinksArray);
@@ -64,7 +63,6 @@ export default class TeacherDetail extends React.Component {
                                     courseArray.push(obj.entities[i].links[0].href.split('/').pop());
                                 }
                             }
-                            this.setState({ klasses_id: klassArray });
                             this.setState({ courses_id: courseArray });
                             /*-setTimeout(() => {
                                 this.setState({ courseClassLinks: courseClassLinksArray });
