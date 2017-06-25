@@ -16,7 +16,7 @@ export default (props) => {
         headers: myHeaders
     };
 
-    var class_id = props.classId.substring(9);
+    var class_id = props.classId;
 
     //console.log(props);
    var myRequest = new Request('http://localhost:8080/classes/' + class_id + '/' + props.groupId, myInit)
@@ -25,7 +25,7 @@ export default (props) => {
         .then(
         function (response) {
             if (response.ok) {
-                console.log("group disconnected from this class");
+                //console.log("group disconnected from this class");
                 KlassActions.disconnectKlass();
                 GroupActions.addGroup();
                 return response.blob();

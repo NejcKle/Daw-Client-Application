@@ -18,6 +18,7 @@ export default class TeacherList extends React.Component {
     }
 
     fetchData() {
+        console.log("fetching teachers");
         fetch('http://localhost:8080/teachers/')
             .then(
             (response) => {
@@ -26,7 +27,6 @@ export default class TeacherList extends React.Component {
                     //window.alert("No students in database");
                     this.setState({ containsData: false });
                 }
-
                 else if (response.status === 200) {
                     this.setState({ containsData: true });
                     response.text()
@@ -40,11 +40,9 @@ export default class TeacherList extends React.Component {
                             }
                             this.setState({ teachers: teacherArray });
                             //console.log(this.state.teachers);
-
                             setTimeout(() => {
                                 var connectedTeachersArray = [];
                                 var notConnectedTeachersArray = [];
-
                                 for (var j = 0; j < numOfTeachers; j++) {
                                     var added = false;
                                     //console.log(this.props.connectedTeachers);
@@ -58,24 +56,21 @@ export default class TeacherList extends React.Component {
                                                 added = true;
                                             }
                                         }
-
-
                                     }
-                                        if(!added) {
-                                            //console.log(this.state.teachers[j].id);
-                                            notConnectedTeachersArray.push(this.state.teachers[j]);
-                                        }
-
+                                    if(!added) {
+                                        //console.log(this.state.teachers[j].id);
+                                        notConnectedTeachersArray.push(this.state.teachers[j]);
+                                    }
                                 }
                                 this.setState({ connectedTeachers: connectedTeachersArray, notConnectedTeachers: notConnectedTeachersArray });
                             }, 500);
                         });
                 }
             }
-            )
-            .catch(function (err) {
-                console.log('Fetch Error :-S', err);
-            })
+        )
+        .catch(function (err) {
+            console.log('Fetch Error :-S', err);
+        })
     }
 
     componentDidMount() {

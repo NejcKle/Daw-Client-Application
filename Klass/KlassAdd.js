@@ -45,11 +45,11 @@ export default (props) => {
             console.log('Fetch Error :-S', err);
         })
 
-    setTimeout(() => {fetch(conRequest)
+   fetch(conRequest)
         .then(
         function (response) {
             if (response.ok) {
-                //console.log("Class added to this course.");
+                console.log("Class added to this course.");
                 KlassActions.connectKlass();
                 CourseActions.addCourse();
                 return response.blob();
@@ -58,13 +58,13 @@ export default (props) => {
         })
         .catch(function (err) {
             console.log('Fetch Error :-S', err);
-        })}, 100)
+        })
 
-        setTimeout(() => {fetch(con2Request)
+       fetch(con2Request)
         .then(
         function (response) {
             if (response.ok) {
-                //console.log("Class added to this course.");
+                console.log("semester added to this course.");
                 KlassActions.connectKlass();
                 CourseActions.addCourse();
                 return response.blob();
@@ -73,9 +73,9 @@ export default (props) => {
         })
         .catch(function (err) {
             console.log('Fetch Error :-S', err);
-        })}, 200)
+        })
 
-        setTimeout(() => {fetch(con3Request)
+      fetch(con3Request)
         .then(
         function (response) {
             if (response.ok) {
@@ -88,7 +88,7 @@ export default (props) => {
         })
         .catch(function (err) {
             console.log('Fetch Error :-S', err);
-        })}, 300)
+        })
 /*
         setTimeout(() => {fetch(con4Request)
         .then(

@@ -56,15 +56,12 @@ export default class KlassForm extends React.Component {
           Auto Enrolment:
           <FormControl name="enrolment" type="checkbox" onChange={this.changeCheck} checked={this.state.enrolment} />
         </label>
-
         <div onChange={this.setSem.bind(this)}>
           Semester:
           <FormControl type="radio" value="win" name="semester" /> Winter
           <FormControl type="radio" value="sum" name="semester" /> Summer
       </div>
-
-        <Button type="submit">Add Class</Button>
-
+      <Button type="submit">Add Class</Button>
       </form>
     );
   }

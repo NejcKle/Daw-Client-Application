@@ -16,7 +16,7 @@ export default (props) => {
         headers: myHeaders
     };
 
-    var class_id = props.classId.substring(9);
+    var class_id = props.classId;
     //console.log(props.groupId + " " + class_id);
 
     //console.log(props);
