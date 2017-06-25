@@ -1,8 +1,9 @@
 import TeacherDisplay from '../Teacher/TeacherDisplay'
 import TeacherForm from '../Teacher/TeacherForm'
-
 import { Link } from 'react-router-dom'
 const React = require('react')
+
+var courseClassLinksArray = [];
 
 export default class TeacherDetail extends React.Component {
     constructor(props) {
@@ -56,10 +57,8 @@ export default class TeacherDetail extends React.Component {
                                     var className = obj.entities[i].links[0].href.split('/').pop();
                                     klassArray.push(className);
                                     //console.log(className);
-                                    setTimeout(() => {
-                                        this.fetchCourseClassConnection(className);
-                                        //console.log(courseClassLinksArray);
-                                    }, 50);  
+                                    this.fetchCourseClassConnection(className);
+                                    //console.log(courseClassLinksArray);
                                 }
                                 if (obj.entities[i].title === "course") {
                                     courseArray.push(obj.entities[i].links[0].href.split('/').pop());
@@ -94,7 +93,6 @@ export default class TeacherDetail extends React.Component {
                     response.text()
                         .then((data) => {
                             var obj = JSON.parse(data);
-                            var courseClassLinksArray = [];
                             for (var i = 0; i < obj.entities.length; i++) {
                                 if (obj.entities[i].title === "course") {
                                     //console.log(obj.entities[i].properties.name);

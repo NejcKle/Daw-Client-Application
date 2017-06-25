@@ -19,14 +19,14 @@ export default (props) => {
                             {props.notConnectedTeachers.map(t => (
                                 <tr key={t.id}><td><Link to={'/teachers/' + t.id}>{t.id}</Link></td><td>{t.name}</td><td>{t.number}</td><td>{t.email}</td><td>{t.admin.toString()}</td>
                                     <td><Button type="button" onClick={() => {
-                                        KlassConnectTeacher({ teacherId: t.id, classId: props.classId })
+                                        KlassConnectTeacher({ teacherId: t.id, classId: props.classId.split('/').pop() })
                                     }}>Add teacher</Button></td>
                                 </tr>
                             ))}
                             {props.connectedTeachers.map(t => (
                                 <tr key={t.id}><td><Link to={'/teachers/' + t.id}>{t.id}</Link></td><td>{t.name}</td><td>{t.number}</td><td>{t.email}</td><td>{t.admin.toString()}</td>
                                     <td><Button type="button" onClick={() => {
-                                        KlassDisconnectTeacher({ teacherId: t.id, classId: props.classId })
+                                        KlassDisconnectTeacher({ teacherId: t.id, classId: props.classId.split('/').pop() })
                                     }}>Remove teacher</Button></td>
                                 </tr>
                             ))}

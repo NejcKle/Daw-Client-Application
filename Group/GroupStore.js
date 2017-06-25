@@ -17,6 +17,14 @@ class GroupStore extends EventEmitter {
         this.emit("change");
     }
 
+    connectGroup() {
+        this.emit("change");
+    }
+
+    disconnectGroup() {
+        this.emit("change");
+    }
+
     getState() {
         return this.containsData;
     }
@@ -29,6 +37,14 @@ class GroupStore extends EventEmitter {
             }
             case "REMOVE_GROUP": {
                 this.removeGroup();
+                break;
+            }
+            case "CONNECT_GROUP": {
+                this.connectGroup();
+                break;
+            }
+            case "DISCONNECT_GROUP": {
+                this.disconnectGroup();
                 break;
             }
         }

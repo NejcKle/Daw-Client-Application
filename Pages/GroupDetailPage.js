@@ -1,4 +1,5 @@
 import GroupDisplay from '../Group/GroupDisplay'
+import GroupStore from '../Group/GroupStore'
 const React = require('react')
 
 export default class GroupDetail extends React.Component {
@@ -15,10 +16,24 @@ export default class GroupDetail extends React.Component {
             courseClassLink: ''
         }
         this.fetchCourseClassConnection = this.fetchCourseClassConnection.bind(this);
+        this.fetchData = this.fetchData.bind(this);
     }
 
     componentWillMount() {
-        fetch('http://localhost:8080' + this.props.location.pathname)
+        this.fetchData();
+    }
+
+    componentDidMount() {
+        GroupStore.on("change", this.fetchData);
+    }
+
+    fetchData() {
+        var location;
+        if (this.props.location.pathname !== '') {
+            location = this.props.location.pathname;
+        }
+        else location = window.location.pathname;
+        fetch('http://localhost:8080' + location)
             .then(
             (response) => {
                 if (response.status === 404) {
@@ -41,21 +56,19 @@ export default class GroupDetail extends React.Component {
                                 }
                                 if (obj.entities[i].title === "class") {
                                     klass = obj.entities[i].links[0].href.split('/').pop();
-                                    setTimeout(() => {
-                                        this.fetchCourseClassConnection(klass);
-                                        //console.log(courseClassLink);
-                                    }, 50);  
+                                    this.fetchCourseClassConnection(klass);
+                                    //console.log(courseClassLink); 
                                 }
                             }
                             this.setState({ students_id: studentsArray });
-                            this.setState({klass_id: klass});
+                            this.setState({ klass_id: klass });
                     });
                 }
             }
-            )
-            .catch(function (err) {
-                console.log('Fetch Error :-S', err);
-            })
+        )
+        .catch(function (err) {
+            console.log('Fetch Error :-S', err);
+        })
     }
 
     fetchCourseClassConnection(className) {
@@ -92,7 +105,7 @@ export default class GroupDetail extends React.Component {
         return (
             <div>
                 <h1> Group Detail </h1>
-                <GroupDisplay id={this.state.id} name={this.state.name} students_limit={this.state.students_limit} klass_id={this.state.courseClassLink} students_id={this.state.students_id} containsData={this.state.containsData} />
+                <GroupDisplay username={this.props.username} id={this.state.id} name={this.state.name} students_limit={this.state.students_limit} klass_id={this.state.courseClassLink} students_id={this.state.students_id} containsData={this.state.containsData} />
             </div>
         );
     }

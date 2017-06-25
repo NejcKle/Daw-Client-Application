@@ -1,8 +1,9 @@
 import StudentDisplay from '../Student/StudentDisplay'
 import StudentForm from '../Student/StudentForm'
-
 import { Link } from 'react-router-dom'
 const React = require('react')
+
+var courseClassLinksArray = [];
 
 export default class StudentDetail extends React.Component {
     constructor(props) {
@@ -50,9 +51,7 @@ export default class StudentDetail extends React.Component {
                             for (var i = 0; i < obj.entities.length; i++) {
                                 var className = obj.entities[i].links[0].href.split('/').pop();
                                 klassArray.push(className);
-                                setTimeout(() => {
-                                    this.fetchCourseClassConnection(className);
-                                }, 50);
+                                this.fetchCourseClassConnection(className);
                             }
                             this.setState({ klasses_id: klassArray });
                             //console.log(obj.entities[0].links[0].href.split('/').pop()); --> extracts id of class
@@ -74,13 +73,11 @@ export default class StudentDetail extends React.Component {
                     window.alert("No teachers in database");
                     //this.setState({ containsData: false });
                 }
-
                 else if (response.status === 200) {
                     //this.setState({ containsData: true });
                     response.text()
                         .then((data) => {
                             var obj = JSON.parse(data);
-                            var courseClassLinksArray = [];
                             for (var i = 0; i < obj.entities.length; i++) {
                                 if (obj.entities[i].title === "course") {
                                     //console.log(obj.entities[i].properties.name);

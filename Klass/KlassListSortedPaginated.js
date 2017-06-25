@@ -6,10 +6,11 @@ import KlassStore from './KlassStore'
 import * as KlassActions from '../Actions/KlassActions'
 import {Button, Table} from 'react-bootstrap'
 
+var courseClassLinksArray = [];
+
 export default class KlassList extends React.Component {
     constructor(props) {
         super(props);
-
         this.fetchData = this.fetchData.bind(this);
         this.fetchNext = this.fetchNext.bind(this);
         this.getNumberOfStudents = this.getNumberOfStudents.bind(this);
@@ -65,10 +66,10 @@ export default class KlassList extends React.Component {
                         });
                 }
             }
-            )
-            .catch(function (err) {
-                console.log('Fetch Error :-S', err);
-            })
+        )
+        .catch(function (err) {
+            console.log('Fetch Error :-S', err);
+        })
     }
 
     fetchNext() {
@@ -129,10 +130,9 @@ export default class KlassList extends React.Component {
                             for (var i = 0; i < numOfKlasses; i++) {
                                 var KlassTemp = new Klass(obj.entities[i].properties.identifier, obj.entities[i].properties.enrolment_auto, obj.entities[i].properties.id);
                                 klassesArray.push(KlassTemp);
-                                 setTimeout(() => {
-                                        this.fetchCourseClassConnection(KlassTemp);
-                                        //console.log(courseClassLinksArray);
-                                    }, 50); 
+                                //console.log(KlassTemp);
+                                this.fetchCourseClassConnection(KlassTemp);
+                                //console.log(courseClassLinksArray);
                             }
                             this.setState({ klasses: klassesArray });
                             //KlassActions.addKlass();
@@ -140,12 +140,13 @@ export default class KlassList extends React.Component {
                             //console.log(numOfKlasses);
                         });
                         this.fetchNext();
+                    }
                 }
-            }
             )
             .catch(function (err) {
                 console.log('Fetch Error :-S', err);
-            })
+            }
+        )
     }
 
     componentDidMount() {
@@ -158,6 +159,7 @@ export default class KlassList extends React.Component {
     }
 
     fetchCourseClassConnection(className) {
+        //console.log("ime " + className.id);
         fetch('http://localhost:8080/classes/' + className.id)
             .then(
             (response) => {
@@ -170,8 +172,8 @@ export default class KlassList extends React.Component {
                     response.text()
                         .then((data) => {
                             var obj = JSON.parse(data);
-                            var courseClassLinksArray = [];
                             for (var i = 0; i < obj.entities.length; i++) {
+                                //console.log(obj.entities[i]);
                                 if (obj.entities[i].title === "course") {
                                     //console.log("PRVI ALO " + obj.entities[i].properties.name);
                                     courseClassLinksArray.push('/courses/' + obj.entities[i].properties.name + '/' + className.id);
@@ -179,6 +181,7 @@ export default class KlassList extends React.Component {
                             }
                             setTimeout(() => {
                                  this.setState({courseClassLinks: courseClassLinksArray});
+                                 //console.log(this.state.courseClassLinks);
                             }, 5);
                         }
                     )

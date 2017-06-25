@@ -9,7 +9,7 @@ import {Button, Table} from 'react-bootstrap'
 export default (props) => {
     if (props.containsData) {
         var url = document.URL;
-        if (url.includes('/classes/')) {
+        if (url.includes('/courses/')) {
              return (
                 <div>
                     <Table>
@@ -18,14 +18,14 @@ export default (props) => {
                             {props.notConnectedGroups.map(g => (
                                 <tr key={g.id}><td><Link to={'/groups/' + g.id}>{g.id}</Link></td><td>{g.name}</td><td>{g.students_limit}</td>
                                     <td><Button type="button" onClick={() => {
-                                        KlassConnectGroup({ groupId: g.id, classId: props.classId })
+                                        KlassConnectGroup({ groupId: g.id, classId: props.classId.split('/').pop() })
                                     }}>Add group</Button></td>
                                 </tr>
                             ))}
                             {props.connectedGroups.map(g => (
                                 <tr key={g.id}><td><Link to={'/groups/' + g.id}>{g.id}</Link></td><td>{g.name}</td><td>{g.students_limit}</td>
                                     <td><Button type="button" onClick={() => {
-                                        KlassDisconnectGroup({ groupId: g.id, classId: props.classId })
+                                        KlassDisconnectGroup({ groupId: g.id, classId: props.classId.split('/').pop() })
                                     }}>Remove group</Button></td>
                                 </tr>
                             ))}
@@ -34,7 +34,7 @@ export default (props) => {
                 </div>
             )
         }
-        else {
+        else if (props.admin === true) {
             return (
                 <div>
                     <Table>
@@ -50,6 +50,21 @@ export default (props) => {
                 </div>
             )
         }
+        else {
+            return (
+                <div>
+                    <Table>
+                        <tbody>
+                            <tr><th>Id</th><th>name</th><th>Students limit</th></tr>
+                            {props.groups.map(g => (
+                                <tr key={g.id}><td><Link to={'/groups/' + g.id}>{g.id}</Link></td><td>{g.name}</td><td>{g.students_limit}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
+                </div>
+            )
+        }
     }
 
     else return (
@@ -58,5 +73,3 @@ export default (props) => {
         </div>
     )
 }
-
-                            //onClick={() => RemoveStudent({id: s.id})} binds the function to corresponding <tr>

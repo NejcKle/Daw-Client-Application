@@ -9,7 +9,8 @@ import {Button, Table} from 'react-bootstrap'
 export default (props) => {
     if (props.containsData) {
         var url = document.URL;
-        if (url.includes('/classes/')) {
+        if (url.includes('/courses/')) {
+            //console.log(props.classId.split('/').pop());
             return (
                 <div>
                     <Table>
@@ -18,14 +19,14 @@ export default (props) => {
                             {props.notConnectedStudents.map(s => (
                                 <tr key={s.id}><td><Link to={'/students/' + s.id}>{s.id}</Link></td><td>{s.name}</td><td>{s.number}</td><td>{s.email}</td>
                                     <td><Button type="button" onClick={() => {
-                                        KlassConnectStudent({ studentId: s.id, classId: props.classId })
+                                        KlassConnectStudent({ studentId: s.id, classId: props.classId.split('/').pop() })
                                     }}>Add student</Button></td>
                                 </tr>
                             ))}
                             {props.connectedStudents.map(s => (
                                 <tr key={s.id}><td><Link to={'/students/' + s.id}>{s.id}</Link></td><td>{s.name}</td><td>{s.number}</td><td>{s.email}</td>
                                     <td><Button type="button" onClick={() => {
-                                        KlassDisconnectStudent({ studentId: s.id, classId: props.classId })
+                                        KlassDisconnectStudent({ studentId: s.id, classId: props.classId.split('/').pop() })
                                     }}>Remove student</Button></td>
                                 </tr>
                             ))}
