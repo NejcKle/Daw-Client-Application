@@ -1,6 +1,6 @@
 const React = require('react')
 import { Link } from 'react-router-dom'
-import { Table } from 'react-bootstrap'
+import { Table, Button } from 'react-bootstrap'
 
 import GroupConnectStudent from './GroupConnectStudent'
 import GroupDisconnectStudent from './GroupDisconnectStudent'
@@ -22,7 +22,7 @@ export default (props) => {
                         </tbody>
                     </Table>
                     <br/>
-                    {(props.username != 'admin') 
+                    {(props.username !== 'admin') 
                     ?(
                         (props.students_id.indexOf(props.username) > 0) 
                             ?<td><Button type="button" onClick={() => {GroupDisconnectStudent({ studentId: props.username, groupId: props.id })}}>Leave group</Button></td>
@@ -48,7 +48,7 @@ export default (props) => {
                         </tbody>
                     </Table>
                     <br/>
-                    {(props.username != 'admin') 
+                    {(props.username !== 'admin') 
                     ?(
                         (props.students_id.indexOf(props.username) > 0) 
                             ?<td><Button type="button" onClick={() => {GroupDisconnectStudent({ studentId: props.username, groupId: props.id })}}>Leave group</Button></td>
@@ -69,7 +69,7 @@ export default (props) => {
                         </tbody>
                     </Table>
                     <br/>
-                    {(props.username != 'admin') 
+                    {(props.username !== 'admin') 
                     ?(
                         (props.students_id.indexOf(props.username) > 0) 
                             ?<td><Button type="button" onClick={() => {GroupDisconnectStudent({ studentId: props.username, groupId: props.id })}}>Leave group</Button></td>
@@ -90,7 +90,7 @@ export default (props) => {
                         </tbody>
                     </Table>
                     <br/>
-                    {(props.username != 'admin') 
+                    {(props.username !== 'admin') 
                     ?(
                         (props.students_id.indexOf(props.username) > 0) 
                             ?<td><Button type="button" onClick={() => {GroupDisconnectStudent({ studentId: props.username, groupId: props.id })}}>Leave group</Button></td>

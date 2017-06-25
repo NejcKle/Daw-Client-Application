@@ -1,5 +1,6 @@
 const React = require('react')
 import {Button, FormControl} from 'react-bootstrap'
+import {BrowserRouter as Redirect} from 'react-router'
 
 import AddStudent from './StudentAdd'
 
@@ -34,7 +35,7 @@ export default class StudentForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit.bind(this)}>
+      <form onSubmit={this.handleSubmit.bind(this)} >
         <label>
           Id:
           <FormControl name="s_id" type="text" value={this.state.s_id} onChange={this.handleChange} required="true" />

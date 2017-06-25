@@ -27,6 +27,10 @@ export default (props) => {
                 StudentActions.addStudent();
                 return response.blob();
             }
+
+            if (response.status === 403) {
+                window.alert("You're not enroled in this class or the group is full!");
+            }
             throw new Error('Network response was not ok.');
         })
         .catch(function (err) {

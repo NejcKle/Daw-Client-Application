@@ -45,7 +45,8 @@ export default (props) => {
             console.log('Fetch Error :-S', err);
         })
 
-   fetch(conRequest)
+   setTimeout(() => {
+       setTimeout(() => {fetch(conRequest)
         .then(
         function (response) {
             if (response.ok) {
@@ -59,8 +60,9 @@ export default (props) => {
         .catch(function (err) {
             console.log('Fetch Error :-S', err);
         })
+       }, 50);
 
-       fetch(con2Request)
+       setTimeout(() => {fetch(con2Request)
         .then(
         function (response) {
             if (response.ok) {
@@ -74,8 +76,9 @@ export default (props) => {
         .catch(function (err) {
             console.log('Fetch Error :-S', err);
         })
+       }, 100);
 
-      fetch(con3Request)
+      setTimeout(() => {fetch(con3Request)
         .then(
         function (response) {
             if (response.ok) {
@@ -88,7 +91,9 @@ export default (props) => {
         })
         .catch(function (err) {
             console.log('Fetch Error :-S', err);
-        })
+        })}, 150);
+
+   }, 50);
 /*
         setTimeout(() => {fetch(con4Request)
         .then(

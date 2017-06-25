@@ -47,6 +47,7 @@ export default class StudentDetail extends React.Component {
                             this.setState({ number: obj.properties.number });
                             this.setState({ email: obj.properties.email });
                             var klassArray = [];
+                            courseClassLinksArray = [];
                             //console.log(obj.entities.length);
                             for (var i = 0; i < obj.entities.length; i++) {
                                 var className = obj.entities[i].links[0].href.split('/').pop();

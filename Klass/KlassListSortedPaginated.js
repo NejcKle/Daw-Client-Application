@@ -3,23 +3,23 @@ const fetch = require('isomorphic-fetch')
 import Klass from './Klass'
 import DisplayKlasses from './KlassesDisplay'
 import KlassStore from './KlassStore'
-import {Button} from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 
-var courseClassLinksArray = [];
+var courseClassLinksArray2 = [];
 
 export default class KlassList extends React.Component {
     constructor(props) {
         super(props);
         this.fetchData = this.fetchData.bind(this);
         this.fetchNext = this.fetchNext.bind(this);
-        this.getNumberOfStudents = this.getNumberOfStudents.bind(this);
+        this.getNumberOfKlasses = this.getNumberOfKlasses.bind(this);
         this.incrementButton = this.incrementButton.bind(this);
         this.decrementButton = this.decrementButton.bind(this);
         this.state = {
             klasses: [],
             containsData: false,
             currentPage: 0,
-            pageSize: 5,
+            pageSize: 10,
             prevDisabled: true,
             nextDisabled: true,
             courseClassLinks: []
@@ -41,7 +41,7 @@ export default class KlassList extends React.Component {
         }, 1)
     }
 
-    getNumberOfStudents() {
+    getNumberOfKlasses() {
         fetch('http://localhost:8080/classes')
             .then(
             (response) => {
@@ -63,10 +63,10 @@ export default class KlassList extends React.Component {
                         });
                 }
             }
-        )
-        .catch(function (err) {
-            console.log('Fetch Error :-S', err);
-        })
+            )
+            .catch(function (err) {
+                console.log('Fetch Error :-S', err);
+            })
     }
 
     fetchNext() {
@@ -95,19 +95,19 @@ export default class KlassList extends React.Component {
                         });
                 }
             }
-        )
-        .catch(function (err) {
-            console.log('Fetch Error :-S', err);
-        })
+            )
+            .catch(function (err) {
+                console.log('Fetch Error :-S', err);
+            })
     }
 
     fetchData() {
-        if(this.state.currentPage === 0) {
-            this.setState({prevDisabled: true});
+        if (this.state.currentPage === 0) {
+            this.setState({ prevDisabled: true });
             //console.log("fetch data function" + this.state.currentPage);
         }
         else {
-            this.setState({prevDisabled: false});
+            this.setState({ prevDisabled: false });
         }
 
         fetch('http://localhost:8080/classes/listed/' + this.state.currentPage + '/' + this.state.pageSize + '/descending')
@@ -124,23 +124,27 @@ export default class KlassList extends React.Component {
                             var obj = JSON.parse(data);
                             var numOfKlasses = obj.entities.length;
                             var klassesArray = [];
+                                                            courseClassLinksArray2 = [];
                             for (var i = 0; i < numOfKlasses; i++) {
                                 var KlassTemp = new Klass(obj.entities[i].properties.identifier, obj.entities[i].properties.enrolment_auto, obj.entities[i].properties.id);
                                 klassesArray.push(KlassTemp);
-                                //console.log(KlassTemp);
-                                this.fetchCourseClassConnection(KlassTemp);
+                                console.log(KlassTemp);
+
+                                    this.fetchCourseClassConnection(KlassTemp);
                                 //console.log(courseClassLinksArray);
                             }
-                            this.setState({ klasses: klassesArray });
+                            setTimeout(() => {
+                               this.setState({ klasses: klassesArray });
+                            }, 50);
                         });
-                        this.fetchNext();
-                    }
+                    this.fetchNext();
                 }
+            }
             )
             .catch(function (err) {
                 console.log('Fetch Error :-S', err);
             }
-        )
+            )
     }
 
     componentDidMount() {
@@ -149,7 +153,10 @@ export default class KlassList extends React.Component {
 
     componentWillMount() {
         this.fetchData();
-        this.getNumberOfStudents();
+        setTimeout(() => {
+            this.getNumberOfKlasses();
+        }, 5);
+
     }
 
     fetchCourseClassConnection(className) {
@@ -170,24 +177,24 @@ export default class KlassList extends React.Component {
                                 //console.log(obj.entities[i]);
                                 if (obj.entities[i].title === "course") {
                                     //console.log("PRVI ALO " + obj.entities[i].properties.name);
-                                    courseClassLinksArray.push('/courses/' + obj.entities[i].properties.name + '/' + className.id);
+                                    courseClassLinksArray2.push('/courses/' + obj.entities[i].properties.name + '/' + className.id);
                                 }
                             }
                             setTimeout(() => {
-                                 this.setState({courseClassLinks: courseClassLinksArray});
-                                 //console.log(this.state.courseClassLinks);
+                                this.setState({ courseClassLinks: courseClassLinksArray2 });
+                                //console.log(this.state.courseClassLinks);
                             }, 5);
                         }
-                    )
+                        )
                 }
             }
-        )             
+            )
     }
 
     render() {
         return (
             <div>
-                <DisplayKlasses klasses={this.state.klasses} klasses_links={this.state.courseClassLinks}  containsData={this.state.containsData} />
+                <DisplayKlasses klasses={this.state.klasses} klasses_links={this.state.courseClassLinks} containsData={this.state.containsData} />
                 <Button onClick={this.decrementButton} disabled={this.state.prevDisabled}>Prev</Button>
                 <Button onClick={this.incrementButton} disabled={this.state.nextDisabled}>Next</Button>
             </div>

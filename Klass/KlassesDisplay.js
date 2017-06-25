@@ -6,7 +6,7 @@ import RemoveKlass from './KlassRemove'
 
 export default (props) => {
     if (props.containsData) {
-        //console.log("ALO " + props.klasses_links);
+        console.log(props.klasses_links);
         return (
             <div>
                 <Table>
