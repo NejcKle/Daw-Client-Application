@@ -1,7 +1,7 @@
 const fetch = require('isomorphic-fetch')
 
-import * as KlassActions from '../Actions/KlassActions'
-import * as TeacherActions from '../Actions/TeacherActions'
+import * as GroupActions from '../Actions/GroupActions'
+import * as StudentActions from '../Actions/StudentActions'
 
 export default (props) => {
 
@@ -16,18 +16,15 @@ export default (props) => {
         headers: myHeaders
     };
 
-    var class_id = props.classId;
-
-    //console.log(props);
-    var myRequest = new Request('http://localhost:8080/teachers/' + props.teacherId + '/classes/' + class_id, myInit)
+    var myRequest = new Request('http://localhost:8080/groups/' + props.groupId +'/' + props.studentId, myInit)
 
     fetch(myRequest)
         .then(
         function (response) {
             if (response.ok) {
-                //console.log("teacher disconnected from this class");
-                KlassActions.disconnectKlass();
-                TeacherActions.addTeacher();
+                //console.log("student left the group");
+                GroupActions.disconnectGroup();
+                StudentActions.removeStudent();
                 return response.blob();
             }
             throw new Error('Network response was not ok.');

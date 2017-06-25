@@ -12,3 +12,14 @@ export function removeGroup() {
     })
 }
 
+export function connectGroup() {
+    Dispatcher.dispatch({
+        type: "CONNECT_GROUP",
+    })
+}
+
+export function disconnectGroup() {
+    Dispatcher.dispatch({
+        type: "DISCONNECT_GROUP",
+    })
+}

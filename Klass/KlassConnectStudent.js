@@ -16,7 +16,7 @@ export default (props) => {
         headers: myHeaders
     };
 
-    var class_id = props.classId.substring(9);
+    var class_id = props.classId;
     //console.log(props.teacherId + " " + class_id);
 
     //console.log(props);
@@ -26,9 +26,9 @@ export default (props) => {
         .then(
         function (response) {
             if (response.ok) {
-                console.log("student connected with class");
+                //console.log("student connected with class");
                 KlassActions.connectKlass();
-                StudentActions.addStudent(); //napiši connect teacher
+                StudentActions.addStudent();
                 return response.blob();
             }
             throw new Error('Network response was not ok.');

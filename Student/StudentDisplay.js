@@ -13,7 +13,7 @@ export default (props) => {
                             <tr key={props.id}><td>{props.id}</td><td>{props.name}</td><td>{props.number}</td><td>{props.email}</td>
                                 {props.klasses_id.map(klass => (
                                     <td key={klass}>
-                                        <Link to={'/classes/' + klass}>{klass}</Link>
+                                        <Link to={klass}>{klass.split('/').pop()}</Link>
                                     </td>
                                 ))}
                             </tr>

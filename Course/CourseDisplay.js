@@ -4,6 +4,7 @@ import { Table } from 'react-bootstrap'
 
 export default (props) => {
     if (props.containsData) {
+
         if (props.loggedIn === true) {
             return (
                 <div>
